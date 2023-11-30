@@ -22,8 +22,8 @@ jobs:
 
     steps:
       - uses: actions/checkout@v3
-      - name: Change Directory
-        run: cd secret-santa-fe && pwd
+      - name: List files
+        run: ls -la
       - name: Use Node.js ${{ matrix.node-version }}
         uses: actions/setup-node@v3
         with:

@@ -12,9 +12,6 @@ on:
 jobs:
   test-front-end:
     runs-on: ubuntu-latest
-    defaults:
-      run:
-        working-directory: ./secret-santa-fe
     strategy:
       matrix:
         node-version: [20.x]

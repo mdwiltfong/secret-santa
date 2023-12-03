@@ -1,7 +1,6 @@
 import app from "../app";
 import request from "supertest";
 
-// test the root path will return "hello world"
 test("GET /", async () => {
   const response = await request(app).get("/");
   expect(response.status).toBe(200);

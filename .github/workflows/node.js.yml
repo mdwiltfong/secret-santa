@@ -22,8 +22,6 @@ jobs:
 
     steps:
       - uses: actions/checkout@v3
-      - name: List files
-        run: ls -la
       - name: Use Node.js ${{ matrix.node-version }}
         uses: actions/setup-node@v3
         with:
@@ -34,3 +32,20 @@ jobs:
         run: npm ci
       - name: Run FE Tests
         run: npm run frontend-tests
+  test-server:
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        node-version: [20.x]
+        # See supported Node.js release schedule at https://nodejs.org/en/about/releases/
+    steps:
+      - uses: actions/checkout@v3
+      - name: Use Node.js ${{ matrix.node-version }}
+        uses: actions/setup-node@v3
+        with:
+          node-version: 20.x
+          cache: "npm"
+      - name: Install dependencies
+        run: npm ci
+      - name: Run FE Tests
+        run: npm test

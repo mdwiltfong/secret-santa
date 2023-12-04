@@ -52,8 +52,7 @@ jobs:
 
       - name: Install dependencies
         run: npm ci
-      - name: Install Prisma Clietn
-        run: npm install @prisma/client
+      - run: npm run db:push
       - name: Run Linter
         run: npx eslint .
       - name: Run FE Tests
@@ -88,4 +87,5 @@ jobs:
       - run: npm ci
       # run the migration in the test database
       - run: npm run db:push
+      - run: npx eslint .
       - run: npm run test

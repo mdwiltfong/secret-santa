@@ -87,11 +87,10 @@ jobs:
 
       # Performs a clean installation of all dependencies in the `package.json` file
       # For more information, see https://docs.npmjs.com/cli/ci.html
-      - name: Install dependencies
-        run: npm ci
       - name: Install Prisma Clietn
         run: npm install @prisma/client
-
+      - name: Install dependencies
+        run: npm ci
       - name: Connect to PostgreSQL
         # Runs a script that creates a PostgreSQL table, populates
         # the table with data, and then retrieves the data.

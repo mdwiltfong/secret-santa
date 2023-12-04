@@ -1,4 +1,4 @@
-import { Prisma, PrismaClient } from "@prisma/client";
+import { PrismaClient } from "@prisma/client";
 
 const prisma = new PrismaClient();
 
@@ -6,7 +6,7 @@ class DatabaseClient {
   public prisma = prisma;
   public async pingDb() {
     try {
-      await this.prisma.$queryRaw(Prisma.sql`SELECT 1;`);
+      await this.prisma.$connect();
       console.log("Database connected");
     } catch (error) {
       console.log("Database connection failed");

@@ -174,8 +174,8 @@
     "build": "tsc",
     "dev": "ts-node ./server/server.ts",
     "test": "jest",
-    "db:push": "prisma db push --preview-feature",
-    "migrate:dev": "prisma migrate dev --preview-feature"
+    "db:push": "prisma db push",
+    "migrate:dev": "prisma migrate dev"
   },
   "keywords": [],
   "author": "",

@@ -175,7 +175,7 @@
     "dev": "ts-node ./server/server.ts",
     "test": "jest",
     "db:push": "prisma db push --schema server/prisma/schema.prisma",
-    "migrate:dev": "prisma migrate dev"
+    "migrate:dev": "prisma migrate dev --schema server/prisma/schema.prisma"
   },
   "keywords": [],
   "author": "",

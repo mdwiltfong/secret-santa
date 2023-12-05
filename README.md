@@ -36,7 +36,7 @@ Secret Santa is a web-based application designed to facilitate the traditional S
 
    - Make sure that PSQL is properly [installed](https://www.postgresql.org/download/) on your machine. You can always run `psql --version` to see if it's already installed.
    - This project uses Prisma, which relies on psql connection strings. You must first create a `.env` file in the root. Then, using `.env.example` as a guide, enter your relevant connection string to `.env`. The standard connection string is provided in `.env.example`, but your setup might require a different way to connect Prisma to your db instance.
-     ![Alt text](image.png)
+     ![Alt text](/repo_assets/image.png)
    - At this point you should be able to setup the tables in your db using Prisma. From the root directory run `npm run migrate:dev`. If you query your DB for the tables located under `/server/prisma/schema.prisma` you will see those tables in your db.
    - Once you have your database setup, you can run the server tests to see if you're setup is done correctly.
 

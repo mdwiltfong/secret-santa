@@ -9,7 +9,7 @@ Secret Santa is a web-based application designed to facilitate the traditional S
 - **User Registration**: Allows users to sign up and participate in Secret Santa events.
 - **Event Creation**: Users can create their own Secret Santa events, inviting friends and colleagues.
 - **Gift Suggestions**: The platform suggests gift ideas based on the preferences of the participants.
-- (Add more features specific to your project here.)
+
 
 ## Getting Started
 
@@ -17,7 +17,10 @@ Secret Santa is a web-based application designed to facilitate the traditional S
 
 - Node.js
 - PostgreSQL
-- (Any other prerequisites)
+- Vite (React)
+- TypeScript
+- Prisma
+- Express
 
 ### Local Development
 

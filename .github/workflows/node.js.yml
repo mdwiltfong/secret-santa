@@ -43,7 +43,7 @@ jobs:
         node-version: [20.x]
         # See supported Node.js release schedule at https://nodejs.org/en/about/releases/
     env:
-      DATABASE_URL: postgresql://postgres:postgres@localhost:5432/grading-app
+      DATABASE_URL: postgresql://postgres:postgres@localhost:5432/secret-santa
     steps:
       - uses: actions/checkout@v3
       - name: Use Node.js ${{ matrix.node-version }}
@@ -80,7 +80,7 @@ jobs:
           # Maps TCP port 5432 on service container to the host
           - 5432:5432
     env:
-      DATABASE_URL: postgresql://postgres:postgres@localhost:5432/grading-app
+      DATABASE_URL: postgresql://postgres:postgres@localhost:5432
     steps:
       - uses: actions/checkout@v2
       - uses: actions/setup-node@v1

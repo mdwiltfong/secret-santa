@@ -173,7 +173,7 @@
     "start": "node server/dist/server.js",
     "build": "tsc",
     "dev": "ts-node ./server/server.ts",
-    "test": "jest",
+    "test": "jest server/__tests__",
     "db:push": "prisma db push --schema server/prisma/schema.prisma",
     "migrate:dev": "prisma migrate dev --schema server/prisma/schema.prisma"
   },

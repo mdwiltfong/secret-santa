@@ -22,23 +22,23 @@ model GiftGivingSessions {
 }
 
 model Users {
-  id            Int                @id @default(autoincrement())
-  email         String             @unique
+  id            Int                 @id @default(autoincrement())
+  email         String              @unique
   firstName     String
   lastName      String
   password      String
-  giftSession   GiftGivingSessions @relation(fields: [giftSessionId], references: [id])
+  giftSession   GiftGivingSessions? @relation(fields: [giftSessionId], references: [id])
   giftSessionId Int
   gifts         Users_Gifts[]
 }
 
 model Gifts {
-  id            Int                @id @default(autoincrement())
+  id            Int                 @id @default(autoincrement())
   name          String
   description   String?
   link          String?
-  giftSession   GiftGivingSessions @relation(fields: [giftSessionId], references: [id])
-  giftSessionId Int
+  giftSession   GiftGivingSessions? @relation(fields: [giftSessionId], references: [id])
+  giftSessionId Int?
   user          Users_Gifts[]
 }
 

@@ -10,7 +10,6 @@ Secret Santa is a web-based application designed to facilitate the traditional S
 - **Event Creation**: Users can create their own Secret Santa events, inviting friends and colleagues.
 - **Gift Suggestions**: The platform suggests gift ideas based on the preferences of the participants.
 
-
 ## Getting Started
 
 ### Prerequisites
@@ -51,6 +50,12 @@ Secret Santa is a web-based application designed to facilitate the traditional S
 ## Testing
 
 You can find the server tests under `/server/__tests__`. You can run these tests from the root through `npm test`. For the front-end tests, you can find them under `/client/tests`. In order to execute them you will have to change the directory to `/client` and then run `npm run frontend-tests`.
+
+## Best Practices
+
+When working with the server, you will notice that there are two ways to spin up the server. `npm start` and `npm run dev`. `npm start` is only for building the app. When developing locally you will want to run `npm run dev`.
+
+You will also need to run `npm run dev` in order to generate a new Prisma client. Keep in mind that you will only generate a prisma client when you modify the schema. So after you have executed `npm run dev` you can generate a new client by running `npm run db:push`.
 
 ## Contributing
 

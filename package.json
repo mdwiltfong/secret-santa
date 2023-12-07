@@ -4,7 +4,7 @@
   "description": "",
   "main": "index.js",
   "dependencies": {
-    "@prisma/client": "^5.6.0",
+    "@prisma/client": "^5.7.0",
     "acorn": "^8.11.2",
     "acorn-jsx": "^5.3.2",
     "acorn-walk": "^8.3.0",
@@ -170,10 +170,10 @@
     "yocto-queue": "^0.1.0"
   },
   "scripts": {
-    "start": "node server/dist/server.js",
+    "start": "nodemon server/dist/server.js",
     "build": "tsc",
     "dev": "ts-node ./server/server.ts",
-    "test": "jest",
+    "test": "jest server/__tests__",
     "db:push": "prisma db push --schema server/prisma/schema.prisma",
     "migrate:dev": "prisma migrate dev --schema server/prisma/schema.prisma"
   },

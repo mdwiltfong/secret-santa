@@ -11,25 +11,41 @@ datasource db {
 }
 
 model GiftGivingSessions {
-  id          Int      @id @default(autoincrement())
-  createdAt   DateTime @default(now())
-  updatedAt   DateTime @updatedAt
-  name        String   @db.VarChar(255)
-  description String?
-  date        DateTime
-  users       Users[]
-  Gifts       Gifts[]
+  id                       Int                        @id @default(autoincrement())
+  createdAt                DateTime                   @default(now())
+  updatedAt                DateTime                   @updatedAt
+  name                     String                     @db.VarChar(255)
+  description              String?
+  date                     DateTime
+  gifts                    Gifts_GiftGivingSessions[]
+  users                    Users_GiftGivingSessions[]
 }
 
+
+
+model Users_GiftGivingSessions {
+  id                  Int                 @id @default(autoincrement())
+  user                Users               @relation(fields: [userId], references: [id])
+  userId              Int
+  giftGivingSession   GiftGivingSessions? @relation(fields: [giftGivingSessionId], references: [id])
+  giftGivingSessionId Int
+}
+model Gifts_GiftGivingSessions {
+  id                  Int                 @id @default(autoincrement())
+  giftGivingSession   GiftGivingSessions  @relation(fields: [giftGivingSessionId], references: [id])
+  giftGivingSessionId Int
+  gift                Gifts               @relation(fields: [giftId], references: [id])
+  giftId              Int
+}
 model Users {
-  id            Int                 @id @default(autoincrement())
-  email         String              @unique
-  firstName     String
-  lastName      String
-  password      String
-  giftSession   GiftGivingSessions? @relation(fields: [giftSessionId], references: [id])
-  giftSessionId Int
-  gifts         Users_Gifts[]
+  id                       Int                        @id @default(autoincrement())
+  email                    String                     @unique
+  firstName                String
+  lastName                 String
+  password                 String
+  giftSession              Users_GiftGivingSessions[] 
+  giftSessionId            Int
+  gifts                    Users_Gifts[]
 }
 
 model Gifts {
@@ -37,7 +53,7 @@ model Gifts {
   name          String
   description   String?
   link          String?
-  giftSession   GiftGivingSessions? @relation(fields: [giftSessionId], references: [id])
+  giftSession   Gifts_GiftGivingSessions[]
   giftSessionId Int?
   user          Users_Gifts[]
 }

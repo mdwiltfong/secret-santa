@@ -44,7 +44,7 @@ model Users {
   lastName                 String
   password                 String
   giftSession              Users_GiftGivingSessions[] 
-  giftSessionId            Int
+  giftSessionId            Int?
   gifts                    Users_Gifts[]
 }
 

@@ -61,4 +61,12 @@ describe("Prisma Client Tests", () => {
     );
     expect(userGiftSession).not.toBeNull();
   });
+  it("Should be able to get a user's gifts", async () => {
+    const userGifts = await testUser.getGifts();
+    expect(userGifts.length).not.toBe(0);
+  });
+  it("Should be able to get a user's gift giving sessions", async () => {
+    const userGiftGivingSessions = await testUser.getGiftGivingSessions();
+    expect(userGiftGivingSessions.length).not.toBe(0);
+  });
 });

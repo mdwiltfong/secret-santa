@@ -41,17 +41,7 @@ export class User {
     this.giftSessionId = newUser.giftSessionId;
     this.lastName = newUser.lastName;
   }
-  public static async createUser(userDetails: UserDetails) {
-    const user = await this.prisma.users.create({
-      data: {
-        firstName: userDetails.firstName,
-        lastName: userDetails.lastName,
-        email: userDetails.email,
-        password: userDetails.password,
-      },
-    });
-    return new User(user);
-  }
+
   public async assignGiftToUser(giftId: number) {
     const userGift = await User.prisma.users_Gifts.create({
       data: {
@@ -80,6 +70,32 @@ export class User {
     }
     return new GiftGivingSession(assignedGiftSession);
   }
+  public async getGifts(): Promise<Gift[]> {
+    const gifts = await User.prisma.gifts.findMany({
+      where: {
+        user: {
+          some: {
+            userId: this.id,
+          },
+        },
+      },
+    });
+    return gifts.map((gift) => new Gift(gift));
+  }
+  public async getGiftGivingSessions(): Promise<GiftGivingSession[]> {
+    const giftGivingSessions = await User.prisma.giftGivingSessions.findMany({
+      where: {
+        users: {
+          some: {
+            userId: this.id,
+          },
+        },
+      },
+    });
+    return giftGivingSessions.map(
+      (giftGivingSession) => new GiftGivingSession(giftGivingSession)
+    );
+  }
   public static async retrieveUser(userEmail: string) {
     const user = await User.prisma.users.findUnique({
       where: {
@@ -89,6 +105,17 @@ export class User {
     if (!user) {
       throw new Error("User not found");
     }
+    return new User(user);
+  }
+  public static async createUser(userDetails: UserDetails) {
+    const user = await this.prisma.users.create({
+      data: {
+        firstName: userDetails.firstName,
+        lastName: userDetails.lastName,
+        email: userDetails.email,
+        password: userDetails.password,
+      },
+    });
     return new User(user);
   }
   public getUserFirstName() {

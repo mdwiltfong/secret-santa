@@ -1,4 +1,4 @@
-import { DatabaseClient, User, Gift, GiftGivingSession } from "../../prisma";
+import { DatabaseClient, User, Gift, GiftGivingSession } from "../prisma";
 beforeAll(async () => {
   Promise.all([
     await DatabaseClient.clearTable("Users"),

@@ -1,5 +1,5 @@
 import { DatabaseClient, User, Gift, GiftGivingSession } from ".";
-import { mockData } from "../__tests__/mockData/mockData";
+import { mockData } from "../mockData/mockData";
 async function clearDB() {
   try {
     Promise.all([

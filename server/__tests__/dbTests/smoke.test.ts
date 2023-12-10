@@ -62,11 +62,20 @@ describe("Prisma Client Tests", () => {
     expect(userGiftSession).not.toBeNull();
   });
   it("Should be able to get a user's gifts", async () => {
-    const userGifts = await testUser.getGifts();
+    const userGifts = await testUser.getAllGifts();
     expect(userGifts.length).not.toBe(0);
   });
   it("Should be able to get a user's gift giving sessions", async () => {
     const userGiftGivingSessions = await testUser.getGiftGivingSessions();
     expect(userGiftGivingSessions.length).not.toBe(0);
+  });
+  it("Should be able to get all the users assigned to a gift giving session", async () => {
+    const giftGivingSessionUsers = await giftGivingSession.getUsers();
+    expect(giftGivingSessionUsers.length).not.toBe(0);
+  });
+
+  it("Should be able to get all the gifts assigned to a gift giving session", async () => {
+    const giftGivingSessionGifts = await giftGivingSession.getGifts();
+    expect(giftGivingSessionGifts.length).not.toBe(0);
   });
 });

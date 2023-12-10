@@ -12,7 +12,7 @@ type UserDetails = {
   password: string;
 };
 
-type GiftGivingSessionDetails = {
+type Session = {
   createdAt: Date;
   updatedAt: Date;
   name: string;
@@ -39,11 +39,12 @@ export class User {
     this.lastName = newUser.lastName;
   }
 
-  public async assignGiftToUser(giftId: number) {
+  public async assignGiftToUser(giftId: number, quantity: number) {
     const userGift = await User.prisma.sessionUserGifts.create({
       data: {
         userId: this.id,
         giftId: giftId,
+        quantity: quantity,
       },
     });
     return userGift;
@@ -123,6 +124,21 @@ export class User {
       },
     });
     return new User(user);
+  }
+  public async assignUsersGiftToSession(
+    giftId: number,
+    sessionId: number,
+    quantity: number
+  ) {
+    const userGift = await User.prisma.sessionUserGifts.create({
+      data: {
+        userId: this.id,
+        giftId: giftId,
+        sessionID: sessionId,
+        quantity: quantity,
+      },
+    });
+    return userGift;
   }
   public getUserFirstName() {
     return this.firstName;
@@ -215,7 +231,7 @@ export class GiftGivingSession {
     return gifts.map((gift) => new Gift(gift));
   }
   public static async createGiftGivingSession(
-    giftGivingSessionDetails: GiftGivingSessionDetails
+    giftGivingSessionDetails: Session
   ) {
     const giftSession = await this.prisma.sessions.create({
       data: {

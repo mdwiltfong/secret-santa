@@ -5,12 +5,12 @@ beforeAll(async () => {
     await DatabaseClient.clearTable("Gifts"),
   ]);
 });
-/* afterAll(async () => {
+afterAll(async () => {
   Promise.all([
     await DatabaseClient.clearTable("Users"),
     await DatabaseClient.clearTable("Gifts"),
   ]);
-}); */
+});
 describe("Database Smoke test", () => {
   it("should connect to the database", async () => {
     await DatabaseClient.pingDb();
@@ -52,7 +52,7 @@ describe("Prisma Client Tests", () => {
     expect(giftGivingSession).not.toBeNull();
   });
   it("Should be able to assign a gift to a user", async () => {
-    const userGift = await testUser.assignGiftToUser(giftOne.getGiftID());
+    const userGift = await testUser.assignGiftToUser(giftOne.getGiftID(), 5);
     expect(userGift).not.toBeNull();
   });
   it("Should be able to assign a user to a gift giving session", async () => {
@@ -73,7 +73,14 @@ describe("Prisma Client Tests", () => {
     const giftGivingSessionUsers = await giftGivingSession.getUsers();
     expect(giftGivingSessionUsers.length).not.toBe(0);
   });
-
+  it("Should be able to assign a users gift to a session", async () => {
+    const userGiftSession = await testUser.assignUsersGiftToSession(
+      giftOne.getGiftID(),
+      giftGivingSession.getGiftGivingSessionID(),
+      5
+    );
+    expect(userGiftSession).not.toBeNull();
+  });
   it("Should be able to get all the gifts assigned to a gift giving session", async () => {
     const giftGivingSessionGifts = await giftGivingSession.getGifts();
     expect(giftGivingSessionGifts.length).not.toBe(0);

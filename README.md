@@ -37,7 +37,7 @@ Secret Santa is a web-based application designed to facilitate the traditional S
 3. **Set up the PostgreSQL database:**
 
    - Make sure that PSQL is properly [installed](https://www.postgresql.org/download/) on your machine. You can always run `psql --version` to see if it's already installed.
-   - This project uses Prisma, which relies on psql connection strings. You must first create a `.env` file in the root. Then, using `.env.example` as a guide, enter your relevant connection string to `.env`. The standard connection string is provided in `.env.example`, but your setup might require a different way to connect Prisma to your db instance.
+   - This project uses Prisma, which relies on psql connection strings. You must first create a `.env` file in the root. Then, using `.env.example` as a guide, enter your relevant connection string to `.env`. The standard connection string is provided in `.env.example`, but your setup might require a different way to connect Prisma to your db instance. For instance, your db might not have a password by default. As a result, you will leave the `PASSWORD` part of the connection string blank. 
      ![Alt text](/repo_assets/image.png)
    - At this point you should be able to setup the tables in your db using Prisma. From the root directory run `npm run migrate:dev`. If you query your DB for the tables located under `/server/prisma/schema.prisma` you will see those tables in your db.
    - Once you have your database setup, you can run the server tests to see if you're setup is done correctly.
@@ -46,6 +46,7 @@ Secret Santa is a web-based application designed to facilitate the traditional S
    - First, you must launch the server. You can do this by running `npm run dev`
    - The server by default listens at port 3000. So if your server is running correctly, you should be able to visit `http://localhost:3000`
    - Once your app is runing, you can launch the front-end. You can do this by chaning your directory to `/client` and then running `npm run dev`. Vite is able to find available ports and then launch the app. As a result, you will have to pay attention to what your terminal prints out to know what port to visit.
+   - You can also clear and seed the database by running `npm run db:seed`. 
 
 ## Testing
 
@@ -55,7 +56,9 @@ You can find the server tests under `/server/__tests__`. You can run these tests
 
 When working with the server, you will notice that there are two ways to spin up the server. `npm start` and `npm run dev`. `npm start` is only for building the app. When developing locally you will want to run `npm run dev`.
 
-You will also need to run `npm run dev` in order to generate a new Prisma client. Keep in mind that you will only generate a prisma client when you modify the schema. So after you have executed `npm run dev` you can generate a new client by running `npm run db:push`.
+### Working with Prisma
+
+In some instances, your fork is lagging behind new updates being made to the db. These updates are typically done by modifying `server/prisma/schema.prisma`. In order to make sure your contribution passes the db tests, you should pull from main, potentially resolve any conflicts, and then update the schema on your local db. You can update your local db by running `npm run db:push`. Once that command is successful, you will have to generate a new prisma client. You can do this by running `npm run db:newClient`. 
 
 ## Contributing
 
@@ -66,3 +69,4 @@ The best approach to contributing is first making an issue in the repository, an
 ## Resources
 
 - [Using Prisma with Relational Databases](https://www.prisma.io/docs/getting-started/setup-prisma/start-from-scratch/relational-databases-typescript-postgresql)
+- [Secret Santa Wiki](https://github.com/mdwiltfong/secret-santa/wiki)

@@ -36,10 +36,30 @@ model SessionUserGifts{
 model Users {
   id                       Int                        @id @default(autoincrement())
   email                    String                     @unique
-  firstName                String
-  lastName                 String
+  firstName                String?
+  lastName                 String?
   password                 String
   sessionUserGifts         SessionUserGifts[]
+  tokens                   Token[]
+}
+
+model Token {
+ id         Int       @id @default(autoincrement())
+ createdAt  DateTime  @default(now())
+ updatedAt  DateTime  @updatedAt
+ type       TokenType
+ emailToken String?   @unique // Only used for short lived email tokens
+ valid      Boolean   @default(true)
+ expiration DateTime
+
+ // Relation fields
+ user   Users @relation(fields: [userId], references: [id])
+ userId Int
+}
+
+enum TokenType {
+ EMAIL // used as a short-lived token sent to the user's email
+ API
 }
 
 model Gifts {

@@ -12,8 +12,8 @@ type GiftDetails = {
   description?: string;
 };
 type UserDetails = {
-  firstName: string;
-  lastName: string;
+  firstName?: string;
+  lastName?: string;
   email: string;
   password: string;
 };
@@ -30,16 +30,16 @@ export class User {
   private static prisma = prisma;
   private id: number;
   private email: string;
-  private firstName: string;
-  private lastName: string;
+  private firstName: string | null;
+  private lastName: string | null;
   private sessions?: GiftGivingSession[];
   private gifts?: Gift[];
   private password: string;
   constructor(newUser: {
     id: number;
     email: string;
-    firstName: string;
-    lastName: string;
+    firstName: string | null;
+    lastName: string | null;
     password: string;
   }) {
     this.id = newUser.id;

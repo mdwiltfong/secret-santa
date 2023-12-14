@@ -47,8 +47,7 @@ model Tokens {
  id         Int       @id @default(autoincrement())
  createdAt  DateTime  @default(now())
  updatedAt  DateTime  @updatedAt
- type       TokenTypes
- emailToken String?   @unique // Only used for short lived email tokens
+ jwtToken String?   @unique
  valid      Boolean   @default(true)
  expiration DateTime
 
@@ -57,10 +56,6 @@ model Tokens {
  userId Int
 }
 
-enum TokenTypes {
- EMAIL // used as a short-lived token sent to the user's email
- API
-}
 
 model Gifts {
   id            Int                 @id @default(autoincrement())

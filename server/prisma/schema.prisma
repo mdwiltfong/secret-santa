@@ -40,14 +40,14 @@ model Users {
   lastName                 String?
   password                 String
   sessionUserGifts         SessionUserGifts[]
-  tokens                   Token[]
+  tokens                   Tokens[]
 }
 
-model Token {
+model Tokens {
  id         Int       @id @default(autoincrement())
  createdAt  DateTime  @default(now())
  updatedAt  DateTime  @updatedAt
- type       TokenType
+ type       TokenTypes
  emailToken String?   @unique // Only used for short lived email tokens
  valid      Boolean   @default(true)
  expiration DateTime
@@ -57,7 +57,7 @@ model Token {
  userId Int
 }
 
-enum TokenType {
+enum TokenTypes {
  EMAIL // used as a short-lived token sent to the user's email
  API
 }

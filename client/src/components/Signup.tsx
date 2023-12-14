@@ -4,7 +4,7 @@ import Navbar
 function Signup() {
     return(
         <>
-        <Navbar title="Log in"/>
+        <Navbar title="Log in" path="#"/>
          <div className="background d-flex justify-content-center">
             <div className="signup card border-info mb-3">
                 <div className="card-body">

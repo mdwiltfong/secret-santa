@@ -1,8 +1,11 @@
 import "bootstrap/dist/css/bootstrap.min.css";
+import { Link } from "react-router-dom";
+
+
 type NavbarProps = {
-  title: string;
+  title: string, path: string;
 };
-function Navbar({ title }: NavbarProps) {
+function Navbar({ title, path = "/" }: NavbarProps) {
   return (
     <>
       <nav className="navbar">
@@ -10,11 +13,9 @@ function Navbar({ title }: NavbarProps) {
           Secret Santa
         </a>
         <ul className="nav justify-content-end">
-          <li className="nav-item">
-            <button className="btn btn-primary" type="submit">
+            <Link to={path} className="btn btn-primary">
               {title}
-            </button>
-          </li>
+          </Link>
         </ul>
       </nav>
     </>

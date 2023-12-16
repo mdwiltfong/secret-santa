@@ -110,7 +110,8 @@ export class User {
       },
     });
     if (!user) {
-      throw new Error("User not found");
+      console.log("User not found");
+      return null;
     }
     return new User(user);
   }
@@ -123,6 +124,7 @@ export class User {
         password: userDetails.password,
       },
     });
+    if (user) console.log("User created");
     return new User(user);
   }
   public async assignUsersGiftToSession(

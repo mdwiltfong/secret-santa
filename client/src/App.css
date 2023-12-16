@@ -1,18 +1,30 @@
 body {
   padding: 16px;
-  background-color: aliceblue;
+  background-color: rgb(255, 255, 255);
 }
 .form-card {
   padding: 16px 0;
 }
 .signup {
-  width: 50%;
+  width: 100%;
+}
+.spacing {
+  padding: 16px 0;
 }
 h1 {
-  margin: 0;
+  font-size: 20px;
+  padding: 8px;
+  font-weight: 700;
+}
+.border-green {
+  border:rgb(10, 78, 33);
 }
 .background {
+  padding: 48px 0;
   width: 100%;
+}
+.background-morespace {
+  padding: 114px 0;
 }
 .organize {
   width: 60%;
@@ -26,8 +38,14 @@ h1 {
   flex-direction: column;
   align-items: center;
 }
+.space-btns {
+  margin: 0 8px 0 0;
+}
+.border-underline {
+  border-bottom: 5px solid rgb(10, 78, 33);
+}
 .christmas-box {
-  background-color: rgb(101, 186, 218);
+  background-color: rgb(76, 152, 90);
   width: 400px;
   height: 400px;
   border-radius: 15px;
@@ -37,7 +55,11 @@ h1 {
   justify-content: center;
   align-items: center;
 }
-
+a {
+  text-decoration: none;
+  color: rgb(10, 78, 33);
+  margin: 0 8px;
+}
 .box-text {
   color: white;
   font-size: 80px;
@@ -46,6 +68,14 @@ h1 {
   color: white;
 }
 
-#root {
-  height: 100%;
+.navbar-brand {
+  font-weight: 700;
+  color: rgb(10, 78, 33);
+  pointer-events: none;
+}
+.buy-btn {
+  color: white;
+  background-color:rgb(10, 78, 33);
+  padding: 8px 16px;
+  border-radius: 5px;
 }

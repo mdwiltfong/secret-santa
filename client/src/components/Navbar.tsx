@@ -2,10 +2,7 @@ import "bootstrap/dist/css/bootstrap.min.css";
 import { Link } from "react-router-dom";
 
 
-type NavbarProps = {
-  title: string, path: string;
-};
-function Navbar({ title, path = "/" }: NavbarProps) {
+function Navbar(){
   return (
     <>
       <nav className="navbar">
@@ -13,9 +10,15 @@ function Navbar({ title, path = "/" }: NavbarProps) {
           Secret Santa
         </a>
         <ul className="nav justify-content-end">
-            <Link to={path} className="btn btn-primary">
-              {title}
-          </Link>
+            <Link to="/organize" className="border-underline">
+              Organize
+            </Link>
+            <Link to="/buy" className="border-underline">
+              Buy Gifts
+            </Link>
+            <Link to="/login" className="border-underline">
+              Log in
+            </Link>
         </ul>
       </nav>
     </>

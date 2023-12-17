@@ -42,13 +42,13 @@ const mockUsers: User[] = [
     firstName: "Test",
     lastName: "User",
     email: "testUser@email.com",
-    password: "$2y$10$nm/2RZ.8whxG3diMjuv8du2QlMMlB9BsNRIjArPGHrOZU4L7dcUGC",
+    password: "$2b$10$wQKPTTzcW0eAo/46hucjJuAAjtWL45fvsA6Ktc7IaDy75Loq2gN8G",
   },
   {
     firstName: "Test",
     lastName: "User 2",
     email: "testUser2@email.com",
-    password: "$2y$10$nm/2RZ.8whxG3diMjuv8du2QlMMlB9BsNRIjArPGHrOZU4L7dcUGC",
+    password: "$2b$10$wQKPTTzcW0eAo/46hucjJuAAjtWL45fvsA6Ktc7IaDy75Loq2gN8G",
   },
 ];
 

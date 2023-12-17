@@ -1,6 +1,8 @@
 import express, { NextFunction, Request, Response } from "express";
 import jwt from "jsonwebtoken";
 import { User } from "../prisma/index";
+import passport from "passport";
+import bcrypt from "bcrypt";
 const authRouter = express.Router();
 /* type UserToken = {
   email: string;
@@ -26,10 +28,10 @@ authRouter.post(
       if (foundUser) {
         return res.status(403).json({ error: "Email is already in use" });
       }
-
+      const hashedPassword = await bcrypt.hash(password, 10);
       const newUser = await User.createUser({
         email,
-        password,
+        password: hashedPassword,
         firstName,
         lastName,
       });
@@ -42,12 +44,26 @@ authRouter.post(
   }
 );
 
+authRouter.post(
+  "/login",
+  passport.authenticate("local", { session: false }),
+  async (req: Request, res: Response) => {
+    if (req.user == undefined) {
+      throw new Error("User is undefined");
+    }
+    const token = generateToken(req.user as User);
+    res.send({ token });
+  }
+);
+
 function generateToken(userDetails: User) {
   return jwt.sign(
     {
-      email: userDetails,
-      firstName: userDetails.getUserFirstName,
-      lastName: userDetails.getUserLastName,
+      email: userDetails.getUserEmail(),
+      firstName: userDetails.getUserFirstName(),
+      lastName: userDetails.getUserLastName(),
+      sessions: userDetails.getSessions(),
+      gifts: userDetails.getGifts(),
     },
     "secret",
     { expiresIn: "1h" }

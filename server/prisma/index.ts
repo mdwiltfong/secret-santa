@@ -26,6 +26,9 @@ export class User {
   private email: string;
   private firstName: string;
   private lastName: string;
+  private sessions?: GiftGivingSession[];
+  private gifts?: Gift[];
+  private password: string;
   constructor(newUser: {
     id: number;
     email: string;
@@ -37,6 +40,7 @@ export class User {
     this.email = newUser.email;
     this.firstName = newUser.firstName;
     this.lastName = newUser.lastName;
+    this.password = newUser.password;
   }
 
   public async assignGiftToUser(giftId: number, quantity: number) {
@@ -153,6 +157,15 @@ export class User {
   }
   public getUserID() {
     return this.id;
+  }
+  public getSessions() {
+    return this.sessions;
+  }
+  public getGifts() {
+    return this.gifts;
+  }
+  public getPassword() {
+    return this.password;
   }
 }
 

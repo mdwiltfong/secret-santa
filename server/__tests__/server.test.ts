@@ -1,7 +1,6 @@
 import app from "../app";
 import request from "supertest";
 import { DatabaseClient } from "../prisma";
-import { error } from "console";
 beforeAll(async () => {
   Promise.all([
     await DatabaseClient.clearTable("Users"),

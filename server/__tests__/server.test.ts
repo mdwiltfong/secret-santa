@@ -15,16 +15,17 @@ afterAll(async () => {
 });
 describe("Server Authorization Tests", () => {
   let token: string;
-  it("registering a user should return a token", async () => {
+  it("registering a user should return a response with a cookie", async () => {
     const response = await request(app).post("/auth/register").send({
       email: "testUser123@email.com",
       password: "password",
       firstName: "Michael",
       lastName: "Wiltfong",
     });
-    token = response.body.token;
+    expect(response.headers["set-cookie"]).toBeDefined();
+    token = response.headers["set-cookie"][0].split(";")[0].split("=")[1];
     expect(response.status).toBe(200);
-    expect(response.body).toMatchObject({ token: expect.any(String) });
+    expect(token).not.toBeNull();
   });
   it("sending a request with an undefined body should return a 400", async () => {
     const response = await request(app).post("/auth/register").send(undefined);
@@ -46,8 +47,10 @@ describe("Server Authorization Tests", () => {
       email: "testUser123@email.com",
       password: "password",
     });
+    expect(response.headers["set-cookie"]).toBeDefined();
+    token = response.headers["set-cookie"][0].split(";")[0].split("=")[1];
     expect(response.status).toBe(200);
-    expect(response.body).toMatchObject({ token: expect.any(String) });
+    expect(token).not.toBeNull();
   });
   it("unregistered user cannot login", async () => {
     const response = await request(app).post("/auth/login").send({
@@ -62,7 +65,7 @@ describe("Server Authorization Tests", () => {
   it("user can access protected resource with token as Bearer token", async () => {
     const response = await request(app)
       .get("/users/testUser123@email.com")
-      .set("Authorization", `Bearer ${token}`);
+      .set("Cookie", [`token=${token}`]);
     expect(response.status).toBe(200);
     expect(response.body).toMatchObject({
       email: expect.any(String),

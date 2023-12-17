@@ -39,7 +39,8 @@ authRouter.post(
       });
 
       const token = generateToken(newUser);
-      res.status(200).json({ token });
+      res.cookie("token", token, { httpOnly: true });
+      return res.status(200).send();
     } catch (error) {
       return next(error);
     }
@@ -54,7 +55,8 @@ authRouter.post(
       throw new Error("User is undefined");
     }
     const token = generateToken(req.user as User);
-    res.send({ token });
+    res.cookie("token", token, { httpOnly: true });
+    return res.status(200).send();
   }
 );
 

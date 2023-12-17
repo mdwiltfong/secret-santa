@@ -15,6 +15,8 @@ import { Strategy as LocalStrategy } from "passport-local";
 import { User } from "./prisma/index";
 import userRouter from "./routes/userRouter";
 import ExpressError from "./utils/ExpressError";
+import cookieExtractor from "./utils/JwtCookieExtractor";
+import cookieParser from "cookie-parser";
 passport.serializeUser(function (user, done) {
   done(null, user);
 });
@@ -48,7 +50,7 @@ passport.use(
   )
 );
 const opts: StrategyOptions = {
-  jwtFromRequest: JwtExtractor.fromAuthHeaderAsBearerToken(),
+  jwtFromRequest: cookieExtractor,
   secretOrKey: "secret",
 };
 
@@ -68,6 +70,7 @@ passport.use(
   })
 );
 const app = express();
+app.use(cookieParser("secret"));
 app.use(passport.initialize());
 
 app.use(bodyParser.json());

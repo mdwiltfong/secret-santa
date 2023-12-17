@@ -3,6 +3,7 @@ import jwt from "jsonwebtoken";
 import { User } from "../prisma/index";
 import passport from "passport";
 import bcrypt from "bcrypt";
+import ExpressError from "../utils/ExpressError";
 const authRouter = express.Router();
 /* type UserToken = {
   email: string;
@@ -22,11 +23,12 @@ authRouter.post(
   async (req: Request, res: Response, next: NextFunction) => {
     try {
       const { email, password, firstName, lastName } = req.body as requstBody;
-
-      //Check If User Exists
+      if (email === undefined) {
+        throw new ExpressError(400, "Request body is undefined");
+      }
       const foundUser = await User.retrieveUser(email);
       if (foundUser) {
-        return res.status(403).json({ error: "Email is already in use" });
+        throw new ExpressError(403, "Email is already in use");
       }
       const hashedPassword = await bcrypt.hash(password, 10);
       const newUser = await User.createUser({

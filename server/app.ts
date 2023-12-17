@@ -14,6 +14,7 @@ import {
 import { Strategy as LocalStrategy } from "passport-local";
 import { User } from "./prisma/index";
 import userRouter from "./routes/userRouter";
+import ExpressError from "./utils/ExpressError";
 passport.serializeUser(function (user, done) {
   done(null, user);
 });
@@ -54,11 +55,15 @@ const opts: StrategyOptions = {
 passport.use(
   // TODO: Define jwt payload type
   new JwtStrategy(opts, async function (jwt_payload, done) {
-    const retrieveUser = await User.retrieveUser(jwt_payload.email);
-    if (retrieveUser) {
-      return done(null, retrieveUser);
-    } else {
-      return done(null, false);
+    try {
+      const retrieveUser = await User.retrieveUser(jwt_payload.email);
+      if (retrieveUser) {
+        return done(null, retrieveUser);
+      } else {
+        throw new ExpressError(400, "User not found");
+      }
+    } catch (error) {
+      return done(error, false);
     }
   })
 );

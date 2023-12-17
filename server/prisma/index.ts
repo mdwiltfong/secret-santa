@@ -26,6 +26,9 @@ export class User {
   private email: string;
   private firstName: string;
   private lastName: string;
+  private sessions?: GiftGivingSession[];
+  private gifts?: Gift[];
+  private password: string;
   constructor(newUser: {
     id: number;
     email: string;
@@ -37,6 +40,7 @@ export class User {
     this.email = newUser.email;
     this.firstName = newUser.firstName;
     this.lastName = newUser.lastName;
+    this.password = newUser.password;
   }
 
   public async assignGiftToUser(giftId: number, quantity: number) {
@@ -56,8 +60,13 @@ export class User {
           userId: this.id,
           sessionID: giftSessionId,
         },
+        include: {
+          session: true,
+        },
       });
-      return userGiftSession;
+      if (userGiftSession.session === null)
+        throw new Error("Session not found");
+      return new GiftGivingSession(userGiftSession.session);
     } catch (error) {
       console.log(error);
     }
@@ -110,7 +119,8 @@ export class User {
       },
     });
     if (!user) {
-      throw new Error("User not found");
+      console.log("User not found");
+      return null;
     }
     return new User(user);
   }
@@ -123,6 +133,7 @@ export class User {
         password: userDetails.password,
       },
     });
+    if (user) console.log("User created");
     return new User(user);
   }
   public async assignUsersGiftToSession(
@@ -151,6 +162,15 @@ export class User {
   }
   public getUserID() {
     return this.id;
+  }
+  public getSessions() {
+    return this.sessions;
+  }
+  public getGifts() {
+    return this.gifts;
+  }
+  public getPassword() {
+    return this.password;
   }
 }
 

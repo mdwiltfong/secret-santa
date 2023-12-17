@@ -60,8 +60,13 @@ export class User {
           userId: this.id,
           sessionID: giftSessionId,
         },
+        include: {
+          session: true,
+        },
       });
-      return userGiftSession;
+      if (userGiftSession.session === null)
+        throw new Error("Session not found");
+      return new GiftGivingSession(userGiftSession.session);
     } catch (error) {
       console.log(error);
     }

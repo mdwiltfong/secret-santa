@@ -78,3 +78,5 @@ describe("Server Authorization Tests", () => {
     expect(response.status).toBe(401);
   });
 });
+
+describe("Server User Tests", () => {});

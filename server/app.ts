@@ -6,11 +6,7 @@ import authRouter from "./routes/authRouter";
 import morgan from "morgan";
 import passport from "passport";
 import bcrypt from "bcrypt";
-import {
-  Strategy as JwtStrategy,
-  ExtractJwt as JwtExtractor,
-  StrategyOptions,
-} from "passport-jwt";
+import { Strategy as JwtStrategy, StrategyOptions } from "passport-jwt";
 import { Strategy as LocalStrategy } from "passport-local";
 import { User } from "./prisma/index";
 import userRouter from "./routes/userRouter";

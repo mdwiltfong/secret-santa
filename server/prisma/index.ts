@@ -11,6 +11,7 @@ type GiftDetails = {
   name: string;
   description?: string;
 };
+
 type UserDetails = {
   firstName?: string;
   lastName?: string;
@@ -35,6 +36,7 @@ export class User {
   private sessions?: GiftGivingSession[];
   private gifts?: Gift[];
   private password: string;
+
   constructor(newUser: {
     id: number;
     email: string;
@@ -186,6 +188,7 @@ export class Gift {
   private name: string;
   private description: string | null;
   private link: string | null;
+
   constructor(newGift: {
     id: number;
     name: string;
@@ -197,6 +200,7 @@ export class Gift {
     this.description = newGift.description;
     this.link = newGift.link;
   }
+
   public static async createGift(giftDetails: GiftDetails) {
     const gift = await this.prisma.gifts.create({
       data: {
@@ -274,6 +278,7 @@ export class GiftGivingSession {
     return this.giftGivingSession.id;
   }
 }
+
 export class DatabaseClient {
   private static prisma = prisma;
   public static async clearTable(tableName: string) {

@@ -46,7 +46,9 @@ Secret Santa is a web-based application designed to facilitate the traditional S
    - First, you must launch the server. You can do this by running `npm run dev`
    - The server by default listens at port 3000. So if your server is running correctly, you should be able to visit `http://localhost:3000`
    - Once your app is runing, you can launch the front-end. You can do this by chaning your directory to `/client` and then running `npm run dev`. Vite is able to find available ports and then launch the app. As a result, you will have to pay attention to what your terminal prints out to know what port to visit.
-   - You can also clear and seed the database by running `npm run db:seed`. 
+   - You can also clear and seed the database by running `npm run db:seed`.
+5. **SendGrid Account and API Key:**
+   You may want to interact with the apps ability to send emails through [Twilio's SendGrid API](https://www.twilio.com/en-us/sendgrid/email-api). If so, you will need to sign up for an account and get an API key. If you don't want to interact with this part of the app, you can at least set `SEND_GRID_KEY` and `SEND_GRID_EMAIL` to empty strings. That way the tests can pass. 
 
 ## Testing
 

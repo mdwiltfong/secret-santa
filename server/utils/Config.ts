@@ -24,9 +24,15 @@ const getConfig = (): ENV => {
 };
 
 const getSanitzedConfig = (config: ENV): Config => {
+  const missingKeys = [];
   for (const [key, value] of Object.entries(config)) {
     if (value === undefined) {
-      throw new Error(`Missing value for ${key} in config.env`);
+      missingKeys.push(key);
+    }
+    if (missingKeys.length > 0) {
+      throw new Error(
+        `Missing value(s) for ${missingKeys.join(", ")} in config.env`
+      );
     }
   }
   return config as Config;

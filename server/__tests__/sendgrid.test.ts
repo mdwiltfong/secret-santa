@@ -5,7 +5,7 @@ import SendGrid from "@sendgrid/mail";
 jest.mock("@sendgrid/mail", () => {
   return {
     setApiKey: jest.fn(),
-    send: jest.fn(() => 202),
+    send: jest.fn(() => [{ statusCode: 202 }]),
   };
 });
 describe("SendGrid Tests", () => {

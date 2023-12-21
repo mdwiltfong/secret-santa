@@ -1,6 +1,12 @@
 import { PrismaClient } from "@prisma/client";
-
-const prisma = new PrismaClient();
+import config from "../utils/Config";
+const prisma = new PrismaClient({
+  datasources: {
+    db: {
+      url: config.DATABASE_URL,
+    },
+  },
+});
 type GiftDetails = {
   name: string;
   description?: string;

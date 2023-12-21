@@ -58,6 +58,9 @@ jobs:
           - 5432:5432
     env:
       DATABASE_URL: postgresql://postgres:postgres@localhost:5432
+      SEND_GRID_KEY: ${{ secrets.SEND_GRID_KEY }}
+      SEND_GRID_EMAIL: ${{ secrets.SEND_GRID_EMAIL }}
+      PORT: 5432
     steps:
       - uses: actions/checkout@v2
       - uses: actions/setup-node@v1

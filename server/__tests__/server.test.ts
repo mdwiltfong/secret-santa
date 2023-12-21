@@ -1,8 +1,6 @@
 import app from "../app";
 import request from "supertest";
 import { DatabaseClient } from "../prisma";
-// eslint-disable-next-line @typescript-eslint/no-unused-vars
-import config from "../utils/Config";
 beforeAll(async () => {
   Promise.all([
     await DatabaseClient.clearTable("Users"),

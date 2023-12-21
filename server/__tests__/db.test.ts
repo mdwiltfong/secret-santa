@@ -1,6 +1,4 @@
 import { DatabaseClient, User, Gift, GiftGivingSession } from "../prisma";
-// eslint-disable-next-line @typescript-eslint/no-unused-vars
-import config from "../utils/Config";
 beforeAll(async () => {
   Promise.all([
     await DatabaseClient.clearTable("Users"),

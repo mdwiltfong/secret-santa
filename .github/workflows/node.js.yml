@@ -48,6 +48,9 @@ jobs:
         env:
           POSTGRES_USER: postgres
           POSTGRES_PASSWORD: postgres
+          SEND_GRID_API_KEY: ${{ secrets.SEND_GRID_API_KEY }}
+          SEND_GRID_EMAIL: ${{ secrets.SEND_GRID_EMAIL }}
+          PORT: 5432
         options: >-
           --health-cmd pg_isready
           --health-interval 10s

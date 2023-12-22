@@ -7,14 +7,14 @@ beforeAll(async () => {
     await DatabaseClient.clearTable("SessionUserGifts"),
   ]);
 });
-/* afterAll(async () => {
+afterAll(async () => {
   Promise.all([
     await DatabaseClient.clearTable("Users"),
     await DatabaseClient.clearTable("Gifts"),
     await DatabaseClient.clearTable("Sessions"),
     await DatabaseClient.clearTable("SessionUserGifts"),
   ]);
-}); */
+});
 describe("Database Smoke test", () => {
   it("should connect to the database", async () => {
     await DatabaseClient.pingDb();

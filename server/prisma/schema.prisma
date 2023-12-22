@@ -55,11 +55,11 @@ model UsersInventory{
   quantity                 Int                        @default(0)
 }
 
-model Tokens {
+model EmailTokens {
  id         Int       @id @default(autoincrement())
  createdAt  DateTime  @default(now())
  updatedAt  DateTime  @updatedAt
- jwtToken String?   @unique
+ jwtToken   String   @unique
  valid      Boolean   @default(true)
  expiration DateTime
 

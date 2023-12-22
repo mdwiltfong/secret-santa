@@ -11,7 +11,20 @@ type GiftDetails = {
   name: string;
   description?: string;
 };
-
+type SessionInput = {
+  id: number;
+  createdAt: Date;
+  updatedAt: Date;
+  name: string;
+  description: string | null;
+  date: Date;
+};
+type GiftInput = {
+  id: number;
+  name: string;
+  description: string | null;
+  link: string | null;
+};
 type UserDetails = {
   firstName?: string;
   lastName?: string;
@@ -25,6 +38,14 @@ type Session = {
   name: string;
   description?: string;
   date: Date;
+};
+type InventoryRecord = {
+  id: number;
+  createdAt: Date;
+  updatedAt: Date;
+  userId: number;
+  giftId: number;
+  quantity: number;
 };
 
 export class User {
@@ -51,8 +72,11 @@ export class User {
     this.password = newUser.password;
   }
 
-  public async assignGiftToUser(giftId: number, quantity: number) {
-    const userGift = await User.prisma.sessionUserGifts.create({
+  public async assignGiftToUser(
+    giftId: number,
+    quantity: number
+  ): Promise<InventoryRecord> {
+    const userGift = await User.prisma.usersInventory.create({
       data: {
         userId: this.id,
         giftId: giftId,
@@ -60,6 +84,14 @@ export class User {
       },
     });
     return userGift;
+  }
+  public async getInventory(): Promise<InventoryRecord[] | null> {
+    const inventoryRecord = await User.prisma.usersInventory.findMany({
+      where: {
+        userId: this.id,
+      },
+    });
+    return inventoryRecord;
   }
   public async assignUserToGiftSession(giftSessionId: number) {
     try {
@@ -78,18 +110,6 @@ export class User {
     } catch (error) {
       console.log(error);
     }
-  }
-  public async getAllGifts(): Promise<Gift[]> {
-    const gifts = await User.prisma.gifts.findMany({
-      where: {
-        sessionUserGifts: {
-          some: {
-            userId: this.id,
-          },
-        },
-      },
-    });
-    return gifts.map((gift) => new Gift(gift));
   }
   public async getGiftsForGiftGivingSession(
     giftGivingSessionId: number
@@ -189,12 +209,7 @@ export class Gift {
   private description: string | null;
   private link: string | null;
 
-  constructor(newGift: {
-    id: number;
-    name: string;
-    description: string | null;
-    link: string | null;
-  }) {
+  constructor(newGift: GiftInput) {
     this.id = newGift.id;
     this.name = newGift.name;
     this.description = newGift.description;
@@ -226,22 +241,27 @@ export class Gift {
 
 export class GiftGivingSession {
   private static prisma = prisma;
-  constructor(
-    private giftGivingSession: {
-      id: number;
-      createdAt: Date;
-      updatedAt: Date;
-      name: string;
-      description: string | null;
-      date: Date;
-    }
-  ) {}
+  private id: number;
+  private createdAt: Date;
+  private updatedAt: Date;
+  private name: string;
+  private description: string | null;
+  private date: Date;
+
+  constructor(newSession: SessionInput) {
+    this.id = newSession.id;
+    this.createdAt = newSession.createdAt;
+    this.updatedAt = newSession.updatedAt;
+    this.name = newSession.name;
+    this.description = newSession.description;
+    this.date = newSession.date;
+  }
   public async getUsers() {
     const users = await GiftGivingSession.prisma.users.findMany({
       where: {
         sessionUserGifts: {
           some: {
-            sessionID: this.giftGivingSession.id,
+            sessionID: this.id,
           },
         },
       },
@@ -253,7 +273,7 @@ export class GiftGivingSession {
       where: {
         sessionUserGifts: {
           some: {
-            sessionID: this.giftGivingSession.id,
+            sessionID: this.id,
           },
         },
       },
@@ -275,7 +295,7 @@ export class GiftGivingSession {
     return new GiftGivingSession(giftSession);
   }
   public getGiftGivingSessionID() {
-    return this.giftGivingSession.id;
+    return this.id;
   }
 }
 

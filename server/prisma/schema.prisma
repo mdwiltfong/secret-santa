@@ -41,6 +41,18 @@ model Users {
   password                 String
   sessionUserGifts         SessionUserGifts[]
   tokens                   Tokens[]
+  inventory               UsersInventory[]
+}
+
+model UsersInventory{
+  id                       Int                        @id @default(autoincrement())
+  createdAt                DateTime                   @default(now())
+  updatedAt                DateTime                   @updatedAt
+  user                     Users                      @relation(fields: [userId], references: [id])
+  userId                   Int
+  gift                     Gifts                      @relation(fields: [giftId], references: [id])
+  giftId                   Int
+  quantity                 Int                        @default(0)
 }
 
 model Tokens {
@@ -63,4 +75,5 @@ model Gifts {
   description   String?
   link          String?
   sessionUserGifts         SessionUserGifts[]
+  usersInventory           UsersInventory[]
 }

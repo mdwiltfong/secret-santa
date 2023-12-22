@@ -44,7 +44,7 @@ type InventoryRecord = {
   createdAt: Date;
   updatedAt: Date;
   userId: number;
-  giftId: number;
+  giftId: number | null;
   quantity: number;
 };
 
@@ -168,16 +168,42 @@ export class User {
     giftId: number,
     sessionId: number,
     quantity: number
-  ) {
-    const userGift = await User.prisma.sessionUserGifts.create({
-      data: {
-        userId: this.id,
-        giftId: giftId,
-        sessionID: sessionId,
-        quantity: quantity,
-      },
-    });
-    return userGift;
+  ): Promise<InventoryRecord | undefined> {
+    try {
+      const userInventory = await User.prisma.usersInventory.findFirst({
+        where: {
+          userId: this.id,
+          giftId: giftId,
+        },
+      });
+      if (userInventory === null) {
+        throw new Error("User does not have this gift in their inventory");
+      }
+      if (userInventory.quantity < quantity) {
+        throw new Error(
+          "User does not have enough of this gift in their inventory"
+        );
+      }
+      await User.prisma.usersInventory.update({
+        where: {
+          id: userInventory.id,
+        },
+        data: {
+          quantity: userInventory.quantity - quantity,
+        },
+      });
+      const userGift = await User.prisma.sessionUserGifts.create({
+        data: {
+          userId: this.id,
+          giftId: giftId,
+          sessionID: sessionId,
+          quantity: quantity,
+        },
+      });
+      return userGift as InventoryRecord;
+    } catch (error) {
+      console.log(error);
+    }
   }
   public getUserFirstName() {
     return this.firstName;

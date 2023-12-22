@@ -7,14 +7,14 @@ beforeAll(async () => {
     await DatabaseClient.clearTable("SessionUserGifts"),
   ]);
 });
-afterAll(async () => {
+/* afterAll(async () => {
   Promise.all([
     await DatabaseClient.clearTable("Users"),
     await DatabaseClient.clearTable("Gifts"),
     await DatabaseClient.clearTable("Sessions"),
     await DatabaseClient.clearTable("SessionUserGifts"),
   ]);
-});
+}); */
 describe("Database Smoke test", () => {
   it("should connect to the database", async () => {
     await DatabaseClient.pingDb();
@@ -100,12 +100,31 @@ describe("Prisma Client Tests", () => {
       quantity: 5,
     });
   });
-  it.todo(
-    "Should be able to assign part of inventory to a gift giving session"
-  );
-  it.todo(
-    "Should not be able to assign more then the inventory to a gift giving session"
-  );
+  it("Should be able to assign part of inventory to a gift giving session", async () => {
+    const userGiftSession = await testUser.assignUsersGiftToSession(
+      giftOne.getGiftID(),
+      giftGivingSession.getGiftGivingSessionID(),
+      5
+    );
+    expect(userGiftSession).not.toBeNull();
+    expect(userGiftSession).toMatchObject({
+      id: expect.any(Number),
+      createdAt: expect.any(Date),
+      updatedAt: expect.any(Date),
+      sessionID: expect.any(Number),
+      userId: expect.any(Number),
+      giftId: expect.any(Number),
+      quantity: 5,
+    });
+  });
+  it("Should not be able to assign more then the inventory to a gift giving session", async () => {
+    const userGiftSession = await testUser.assignUsersGiftToSession(
+      giftOne.getGiftID(),
+      giftGivingSession.getGiftGivingSessionID(),
+      5
+    );
+    expect(userGiftSession).toBeUndefined();
+  });
   it("Should be able to assign a user to a gift giving session", async () => {
     const userGiftSession = await testUser.assignUserToGiftSession(
       giftGivingSession.getGiftGivingSessionID()

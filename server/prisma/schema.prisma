@@ -24,10 +24,10 @@ model SessionUserGifts{
   id                       Int                        @id @default(autoincrement())
   createdAt                DateTime                   @default(now())
   updatedAt                DateTime                   @updatedAt
-  session                  Sessions?                   @relation(fields: [sessionID], references: [id])
-  sessionID                Int?
-  user                     Users?                      @relation(fields: [userId], references: [id])
-  userId                   Int?
+  session                  Sessions                 @relation(fields: [sessionID], references: [id])
+  sessionID                Int
+  user                     Users                      @relation(fields: [userId], references: [id])
+  userId                   Int
   gift                     Gifts?                     @relation(fields: [giftId], references: [id])
   giftId                   Int?
   quantity                 Int                         @default(1)

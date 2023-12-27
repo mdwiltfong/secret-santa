@@ -3,7 +3,7 @@ declare module "*.png";
 import Home from "./components/Home";
 import Signup from "./components/Signup";
 import "./App.css";
-import { BrowserRouter, Routes, Route } from "react-router-dom";
+import { Routes, Route } from "react-router-dom";
 import MakeSession from "./components/MakeSession";
 import BuyGifts from "./components/BuyGifts";
 

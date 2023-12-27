@@ -24,10 +24,10 @@ model SessionUserGifts{
   id                       Int                        @id @default(autoincrement())
   createdAt                DateTime                   @default(now())
   updatedAt                DateTime                   @updatedAt
-  session                  Sessions?                   @relation(fields: [sessionID], references: [id])
-  sessionID                Int?
-  user                     Users?                      @relation(fields: [userId], references: [id])
-  userId                   Int?
+  session                  Sessions                 @relation(fields: [sessionID], references: [id])
+  sessionID                Int
+  user                     Users                      @relation(fields: [userId], references: [id])
+  userId                   Int
   gift                     Gifts?                     @relation(fields: [giftId], references: [id])
   giftId                   Int?
   quantity                 Int                         @default(1)
@@ -36,11 +36,38 @@ model SessionUserGifts{
 model Users {
   id                       Int                        @id @default(autoincrement())
   email                    String                     @unique
-  firstName                String
-  lastName                 String
+  firstName                String?
+  lastName                 String?
   password                 String
   sessionUserGifts         SessionUserGifts[]
+  tokens                   EmailTokens[]
+  inventory               UsersInventory[]
 }
+
+model UsersInventory{
+  id                       Int                        @id @default(autoincrement())
+  createdAt                DateTime                   @default(now())
+  updatedAt                DateTime                   @updatedAt
+  user                     Users                      @relation(fields: [userId], references: [id])
+  userId                   Int
+  gift                     Gifts                      @relation(fields: [giftId], references: [id])
+  giftId                   Int
+  quantity                 Int                        @default(0)
+}
+
+model EmailTokens {
+ id         Int       @id @default(autoincrement())
+ createdAt  DateTime  @default(now())
+ updatedAt  DateTime  @updatedAt
+ jwtToken   String   @unique
+ valid      Boolean   @default(true)
+ expiration DateTime
+
+ // Relation fields
+ user   Users @relation(fields: [userId], references: [id])
+ userId Int
+}
+
 
 model Gifts {
   id            Int                 @id @default(autoincrement())
@@ -48,4 +75,5 @@ model Gifts {
   description   String?
   link          String?
   sessionUserGifts         SessionUserGifts[]
+  usersInventory           UsersInventory[]
 }

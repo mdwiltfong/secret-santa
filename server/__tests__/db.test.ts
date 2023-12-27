@@ -3,12 +3,16 @@ beforeAll(async () => {
   Promise.all([
     await DatabaseClient.clearTable("Users"),
     await DatabaseClient.clearTable("Gifts"),
+    await DatabaseClient.clearTable("Sessions"),
+    await DatabaseClient.clearTable("SessionUserGifts"),
   ]);
 });
 afterAll(async () => {
   Promise.all([
     await DatabaseClient.clearTable("Users"),
     await DatabaseClient.clearTable("Gifts"),
+    await DatabaseClient.clearTable("Sessions"),
+    await DatabaseClient.clearTable("SessionUserGifts"),
   ]);
 });
 describe("Database Smoke test", () => {
@@ -32,6 +36,12 @@ describe("Prisma Client Tests", () => {
     });
     expect(giftOne).not.toBeNull();
     expect(giftTwo).not.toBeNull();
+    expect(giftOne).toMatchObject({
+      id: expect.any(Number),
+      name: "Test Gift",
+      description: "Really nice gift",
+      link: null,
+    });
   });
   it("Should be able to create a user", async () => {
     testUser = await User.createUser({
@@ -41,6 +51,13 @@ describe("Prisma Client Tests", () => {
       password: "$2y$10$nm/2RZ.8whxG3diMjuv8du2QlMMlB9BsNRIjArPGHrOZU4L7dcUGC",
     });
     expect(testUser).not.toBeNull;
+    expect(testUser).toMatchObject({
+      id: expect.any(Number),
+      firstName: "Test",
+      lastName: "User",
+      email: expect.any(String),
+      password: expect.any(String),
+    });
   });
   it("Should be able to create a gift giving session", async () => {
     giftGivingSession = await GiftGivingSession.createGiftGivingSession({
@@ -50,20 +67,69 @@ describe("Prisma Client Tests", () => {
       date: new Date("2012-12-12"),
     });
     expect(giftGivingSession).not.toBeNull();
+    expect(giftGivingSession).toMatchObject({
+      id: expect.any(Number),
+      createdAt: expect.any(Date),
+      updatedAt: expect.any(Date),
+      name: "Test Giving Session",
+      description: null,
+      date: expect.any(Date),
+    });
   });
   it("Should be able to assign a gift to a user", async () => {
     const userGift = await testUser.assignGiftToUser(giftOne.getGiftID(), 5);
     expect(userGift).not.toBeNull();
+    expect(userGift).toMatchObject({
+      id: expect.any(Number),
+      createdAt: expect.any(Date),
+      updatedAt: expect.any(Date),
+      userId: expect.any(Number),
+      giftId: expect.any(Number),
+      quantity: 5,
+    });
+  });
+  it("Should be able to retrieve inventory for a user", async () => {
+    const inventoryRecords = await testUser.getInventory();
+    expect(inventoryRecords).not.toBeNull();
+    expect(inventoryRecords![0]).toMatchObject({
+      id: expect.any(Number),
+      createdAt: expect.any(Date),
+      updatedAt: expect.any(Date),
+      userId: expect.any(Number),
+      giftId: expect.any(Number),
+      quantity: 5,
+    });
+  });
+  it("Should be able to assign part of inventory to a gift giving session", async () => {
+    const userGiftSession = await testUser.assignUsersGiftToSession(
+      giftOne.getGiftID(),
+      giftGivingSession.getGiftGivingSessionID(),
+      5
+    );
+    expect(userGiftSession).not.toBeNull();
+    expect(userGiftSession).toMatchObject({
+      id: expect.any(Number),
+      createdAt: expect.any(Date),
+      updatedAt: expect.any(Date),
+      sessionID: expect.any(Number),
+      userId: expect.any(Number),
+      giftId: expect.any(Number),
+      quantity: 5,
+    });
+  });
+  it("Should not be able to assign more then the inventory to a gift giving session", async () => {
+    const userGiftSession = await testUser.assignUsersGiftToSession(
+      giftOne.getGiftID(),
+      giftGivingSession.getGiftGivingSessionID(),
+      5
+    );
+    expect(userGiftSession).toBeUndefined();
   });
   it("Should be able to assign a user to a gift giving session", async () => {
     const userGiftSession = await testUser.assignUserToGiftSession(
       giftGivingSession.getGiftGivingSessionID()
     );
     expect(userGiftSession).not.toBeNull();
-  });
-  it("Should be able to get a user's gifts", async () => {
-    const userGifts = await testUser.getAllGifts();
-    expect(userGifts.length).not.toBe(0);
   });
   it("Should be able to get a user's gift giving sessions", async () => {
     const userGiftGivingSessions = await testUser.getGiftGivingSessions();

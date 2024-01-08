@@ -1,7 +1,7 @@
 import app from "./app";
-import config from "../server/utils/Config";
+import config from "./utils/Config";
 const PORT = config.PORT || 3000;
-
-app.listen(PORT, () => {
-  console.log(`server started at http://localhost:${PORT}`);
+const HOSTNAME = "0.0.0.0";
+app.listen(PORT, HOSTNAME, () => {
+  console.log(`server started at http://${HOSTNAME}:${PORT}`);
 });

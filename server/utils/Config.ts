@@ -9,7 +9,7 @@ interface ENV {
   DATABASE_URL: string;
   SEND_GRID_KEY: string;
   SEND_GRID_EMAIL: string;
-  PORT: string;
+  PORT: number;
 }
 
 interface Config extends ENV {}
@@ -19,7 +19,7 @@ const getConfig = (): ENV => {
     DATABASE_URL: process.env.DATABASE_URL!,
     SEND_GRID_KEY: process.env.SEND_GRID_KEY!,
     SEND_GRID_EMAIL: process.env.SEND_GRID_EMAIL!,
-    PORT: process.env.PORT!,
+    PORT: Number(process.env.PORT!),
   };
 };
 

@@ -13,7 +13,6 @@ import userRouter from "./routes/userRouter";
 import ExpressError from "./utils/ExpressError";
 import cookieExtractor from "./utils/JwtCookieExtractor";
 import cookieParser from "cookie-parser";
-import path from "path";
 passport.serializeUser(function (user, done) {
   done(null, user);
 });

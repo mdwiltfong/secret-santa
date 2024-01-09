@@ -11,20 +11,6 @@ type GiftDetails = {
   name: string;
   description?: string;
 };
-type SessionInput = {
-  id: number;
-  createdAt: Date;
-  updatedAt: Date;
-  name: string;
-  description: string | null;
-  date: Date;
-};
-type GiftInput = {
-  id: number;
-  name: string;
-  description: string | null;
-  link: string | null;
-};
 type UserDetails = {
   firstName?: string;
   lastName?: string;

@@ -73,7 +73,7 @@ app.use(bodyParser.json());
 app.use(morgan("combined"));
 app.use("/auth", authRouter);
 app.use("/users", userRouter);
-app.get("/", (req: Request, res: Response) => {
+app.get("/hello", (req: Request, res: Response) => {
   res.send("Hello world!!!");
 });
 

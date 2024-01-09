@@ -11,20 +11,6 @@ type GiftDetails = {
   name: string;
   description?: string;
 };
-type SessionInput = {
-  id: number;
-  createdAt: Date;
-  updatedAt: Date;
-  name: string;
-  description: string | null;
-  date: Date;
-};
-type GiftInput = {
-  id: number;
-  name: string;
-  description: string | null;
-  link: string | null;
-};
 type UserDetails = {
   firstName?: string;
   lastName?: string;
@@ -104,8 +90,9 @@ export class User {
           session: true,
         },
       });
-      if (userGiftSession.session === null)
+      if (userGiftSession.session === null) {
         throw new Error("Session not found");
+      }
       return new GiftGivingSession(userGiftSession.session);
     } catch (error) {
       console.log(error);
@@ -235,7 +222,12 @@ export class Gift {
   private description: string | null;
   private link: string | null;
 
-  constructor(newGift: GiftInput) {
+  constructor(newGift: {
+    id: number;
+    name: string;
+    description: string | null;
+    link: string | null;
+  }) {
     this.id = newGift.id;
     this.name = newGift.name;
     this.description = newGift.description;
@@ -274,7 +266,14 @@ export class GiftGivingSession {
   private description: string | null;
   private date: Date;
 
-  constructor(newSession: SessionInput) {
+  constructor(newSession: {
+    id: number;
+    createdAt: Date;
+    updatedAt: Date;
+    name: string;
+    description: string | null;
+    date: Date;
+  }) {
     this.id = newSession.id;
     this.createdAt = newSession.createdAt;
     this.updatedAt = newSession.updatedAt;
@@ -322,6 +321,21 @@ export class GiftGivingSession {
   }
   public getGiftGivingSessionID() {
     return this.id;
+  }
+  public getCreatedAt() {
+    return this.createdAt;
+  }
+  public getUpdatedAt() {
+    return this.updatedAt;
+  }
+  public getName() {
+    return this.name;
+  }
+  public getDescription() {
+    return this.description;
+  }
+  public getDate() {
+    return this.date;
   }
 }
 

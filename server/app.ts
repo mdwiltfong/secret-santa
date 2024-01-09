@@ -13,6 +13,7 @@ import userRouter from "./routes/userRouter";
 import ExpressError from "./utils/ExpressError";
 import cookieExtractor from "./utils/JwtCookieExtractor";
 import cookieParser from "cookie-parser";
+import path from "path";
 passport.serializeUser(function (user, done) {
   done(null, user);
 });
@@ -73,7 +74,7 @@ app.use(bodyParser.json());
 app.use(morgan("combined"));
 app.use("/auth", authRouter);
 app.use("/users", userRouter);
-app.get("/", (req: Request, res: Response) => {
+app.get("/hello", (req: Request, res: Response) => {
   res.send("Hello world!!!");
 });
 

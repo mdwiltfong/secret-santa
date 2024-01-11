@@ -1,4 +1,4 @@
-export default function DaysTillChristmasUtil(): number {
+export function DaysTillChristmasUtil(): number {
   const currentDate = new Date();
   const christmasDay = new Date(currentDate.getFullYear(), 11, 25);
   if (currentDate.getMonth() == 11 && currentDate.getDate() > 25) {

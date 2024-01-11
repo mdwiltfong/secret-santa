@@ -1,6 +1,6 @@
 import "bootstrap/dist/css/bootstrap.min.css";
 import Navbar from "./Navbar";
-import DaysTillChristmasUtil from "../util/DaysTillChristmasUtil";
+import { DaysTillChristmasUtil } from "../util/DaysTillChristmasUtil";
 
 function Home() {
   const days: number = DaysTillChristmasUtil();

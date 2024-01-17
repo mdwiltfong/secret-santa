@@ -32,7 +32,7 @@ type EmailToken = {
   createdAt: Date;
   updatedAt: Date;
   jwtToken: string;
-  valid: Boolean;
+  valid: boolean;
   expiration: Date;
   userId: number | null;
 }

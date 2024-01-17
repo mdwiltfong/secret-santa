@@ -9,7 +9,7 @@ import Home from "../src/components/Home.tsx";
 import { DaysTillChristmasUtil } from "../src/util/DaysTillChristmasUtil.ts";
 vi.mock("../src/util/DaysTillChristmasUtil.ts", () => {
   return {
-    DaysTillChristmasUtil: () => 0,
+    DaysTillChristmasUtil: vi.fn(),
   };
 });
 /**
@@ -17,12 +17,10 @@ vi.mock("../src/util/DaysTillChristmasUtil.ts", () => {
  */
 describe("App.tsx tests", () => {
   afterEach(() => {
-    DaysTillChristmasUtil;
     cleanup();
   });
   test("renders without crashing", () => {
-    const respone = DaysTillChristmasUtil();
-    console.log("DaysTilChristmasUtil:", respone);
+    vi.mocked(DaysTillChristmasUtil).mockReturnValue(12);
     render(
       <MemoryRouter>
         <App />
@@ -30,18 +28,27 @@ describe("App.tsx tests", () => {
     );
   });
   test("renders home component", async () => {
+    vi.mocked(DaysTillChristmasUtil).mockReturnValue(12);
     const container = render(
       <MemoryRouter initialEntries={["/"]}>
         <App />
       </MemoryRouter>
     );
-    expect(container.getByText("Days until Secret Santa Reveal")).toBeTruthy();
+
+    expect(container.getByText("Days till Christmas").textContent).toBe(
+      "Days till Christmas"
+    );
   });
   test("Renders 12 months till christmas", () => {
-    render(
+    vi.mocked(DaysTillChristmasUtil).mockReturnValue(336);
+    const container = render(
       <MemoryRouter initialEntries={["/"]}>
         <Home />
       </MemoryRouter>
+    );
+
+    expect(container.getByText("Months till Christmas").textContent).toBe(
+      "Months till Christmas"
     );
   });
 });

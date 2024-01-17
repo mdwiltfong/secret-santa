@@ -1,3 +1,5 @@
+// This file is for extending the TypeScript typings set up by Prisma
+
 import { PrismaClient } from "@prisma/client";
 import config from "../utils/Config";
 const prisma = new PrismaClient({
@@ -25,6 +27,16 @@ type Session = {
   description?: string;
   date: Date;
 };
+
+type EmailToken = {
+  createdAt: Date;
+  updatedAt: Date;
+  jwtToken: string;
+  valid: Boolean;
+  expiration: Date;
+  userId: number | null;
+}
+
 type InventoryRecord = {
   id: number;
   createdAt: Date;
@@ -57,7 +69,6 @@ export class User {
     this.lastName = newUser.lastName;
     this.password = newUser.password;
   }
-
   public async assignGiftToUser(
     giftId: number,
     quantity: number
@@ -78,6 +89,14 @@ export class User {
       },
     });
     return inventoryRecord;
+  }
+  public async getTokens(): Promise<EmailToken[] | null> {
+    const emailTokens = await User.prisma.emailTokens.findMany({
+      where: {
+        userId: this.id,
+      },
+    });
+    return emailTokens;
   }
   public async assignUserToGiftSession(giftSessionId: number) {
     try {

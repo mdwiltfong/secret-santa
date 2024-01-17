@@ -20,7 +20,7 @@ describe("App.tsx tests", () => {
     DaysTillChristmasUtil;
     cleanup();
   });
-  test.only("renders without crashing", () => {
+  test("renders without crashing", () => {
     const respone = DaysTillChristmasUtil();
     console.log("DaysTilChristmasUtil:", respone);
     render(

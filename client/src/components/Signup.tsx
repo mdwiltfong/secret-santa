@@ -1,7 +1,6 @@
 import "bootstrap/dist/css/bootstrap.min.css";
 import christmas from "/./public/christmas_home.png";
 import { useForm, SubmitHandler } from "react-hook-form";
-import { e } from "vite-node/dist/index-6fb787b2.js";
 function Signup() {
   const {
     register,

@@ -1,46 +1,89 @@
-import 'bootstrap/dist/css/bootstrap.min.css'
-import christmas from '/./public/christmas_home.png'
-
+import "bootstrap/dist/css/bootstrap.min.css";
+import christmas from "/./public/christmas_home.png";
+import { useForm, SubmitHandler } from "react-hook-form";
+import { e } from "vite-node/dist/index-6fb787b2.js";
 function Signup() {
-    return(
-        <>
-         <div className="background d-flex justify-content-center">
-            <div>
-            <div className="signup card border-success-subtle mb-3">
-                <div className="card-body">
-                <h5 className="card-title">Sign up</h5>
-                <p className="card-text">Let's get festive and get you started to set up a Secret Santa experience.</p>
-                <form>
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+  } = useForm<Inputs>();
+  type Inputs = {
+    email: string;
+    firstName: string;
+    lastName: string;
+    password: string;
+  };
+  const onSubmit: SubmitHandler<Inputs> = (data) => console.log(data);
+  return (
+    <>
+      <div className="background d-flex justify-content-center">
+        <div>
+          <div className="signup card border-success-subtle mb-3">
+            <div className="card-body">
+              <h5 className="card-title">Sign up</h5>
+              <p className="card-text">
+                Let's get festive and get you started to set up a Secret Santa
+                experience.
+              </p>
+              <form onSubmit={handleSubmit(onSubmit)} noValidate>
                 <div className="mb-3">
-                <label className="form-label">First Name</label>
-                <input type="email" className="form-control" id="exampleInputEmail1" aria-describedby="emailHelp"/>
+                  <label className="form-label">First Name</label>
+                  <input
+                    type="text"
+                    className="form-control"
+                    id="exampleInputEmail1"
+                    aria-describedby="First name"
+                    {...register("firstName", { required: true })}
+                  />
+                  {errors.firstName && <span>This field is required</span>}
                 </div>
                 <div className="mb-3">
-                <label className="form-label">Last Name</label>
-                <input type="email" className="form-control" id="exampleInputEmail1" aria-describedby="emailHelp"/>
+                  <label className="form-label">Last Name</label>
+                  <input
+                    type="text"
+                    className="form-control"
+                    id="exampleInputEmail1"
+                    aria-describedby="Last name"
+                    {...register("lastName", { required: true })}
+                  />
                 </div>
                 <div className="mb-3">
-                <label className="form-label">Email address</label>
-                <input type="email" className="form-control" id="exampleInputEmail1" aria-describedby="emailHelp"/>
+                  <label className="form-label">Email address</label>
+                  <input
+                    type="email"
+                    className="form-control"
+                    id="exampleInputEmail1"
+                    aria-describedby="emailHelp"
+                    {...register("email", { required: true })}
+                  />
+                  {errors.email && <span>This field is required</span>}
                 </div>
                 <div className="mb-3">
-                <label className="form-label">Password</label>
-                <input type="password" className="form-control" id="exampleInputPassword1"/>
+                  <label className="form-label">Password</label>
+                  <input
+                    type="password"
+                    className="form-control"
+                    id="exampleInputPassword1"
+                    {...register("password", { required: true })}
+                  />
+                  {errors.password && <span>This field is required</span>}
                 </div>
-                <button type="submit" className="btn btn-success">Sign up</button>
-                </form>
-                </div>
+                <button type="submit" className="btn btn-success">
+                  Sign up
+                </button>
+              </form>
             </div>
-            <button type="submit" className="btn btn-success">Log in</button>
-            <div>
-            </div>  
+          </div>
+          <button type="submit" className="btn btn-success">
+            Log in
+          </button>
+          <div></div>
         </div>
-        <img src={christmas}/>
-        </div>
-       
-        </>
-    )
+        <img src={christmas} />
+      </div>
+    </>
+  );
 }
 
-
-export default Signup
+export default Signup;

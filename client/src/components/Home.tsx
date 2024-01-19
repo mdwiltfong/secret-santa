@@ -1,5 +1,4 @@
 import "bootstrap/dist/css/bootstrap.min.css";
-import Navbar from "./Navbar";
 import { DaysTillChristmasUtil } from "../util/DaysTillChristmasUtil";
 
 function Home() {
@@ -8,7 +7,6 @@ function Home() {
 
   return (
     <>
-      <Navbar />
       <div className="background-morespace">
         <div className="container">
           <div className="christmas-box">

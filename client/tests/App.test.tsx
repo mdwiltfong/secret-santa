@@ -52,3 +52,44 @@ describe("App.tsx tests", () => {
     );
   });
 });
+
+describe("Navbar.tsx tests", () => {
+  test("renders on Home page", () => {
+    const { container } = render(
+      <MemoryRouter initialEntries={["/"]}>
+        <Home />
+      </MemoryRouter>
+    );
+    const navBar = container.querySelector(".navbar");
+    expect(navBar).toBeDefined();
+  });
+
+  test("Renders on Organize page", () => {
+    const { container } = render(
+      <MemoryRouter initialEntries={["/organize"]}>
+        <Home />
+      </MemoryRouter>
+    );
+    const navBar = container.querySelector(".navbar");
+    expect(navBar).toBeDefined();
+  });
+  test("Renders on Buy Gifts", () => {
+    const { container } = render(
+      <MemoryRouter initialEntries={["/buy"]}>
+        <Home />
+      </MemoryRouter>
+    );
+    const navBar = container.querySelector(".navbar");
+    expect(navBar).toBeDefined();
+  });
+
+  test("Renders on Login", () => {
+    const { container } = render(
+      <MemoryRouter initialEntries={["/login"]}>
+        <Home />
+      </MemoryRouter>
+    );
+    const navBar = container.querySelector(".navbar");
+    expect(navBar).toBeDefined();
+  });
+});

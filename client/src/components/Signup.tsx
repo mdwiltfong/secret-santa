@@ -27,10 +27,14 @@ function Signup() {
               </p>
               <form onSubmit={handleSubmit(onSubmit)} noValidate>
                 <div className="mb-3">
-                  <label className="form-label">First Name</label>
+                  <label className="form-label ">First Name</label>
                   <input
                     type="text"
-                    className="form-control"
+                    className={
+                      errors.firstName
+                        ? "form-control border border-danger"
+                        : "form-control"
+                    }
                     id="exampleInputEmail1"
                     aria-describedby="First name"
                     {...register("firstName", { required: true })}
@@ -41,17 +45,26 @@ function Signup() {
                   <label className="form-label">Last Name</label>
                   <input
                     type="text"
-                    className="form-control"
+                    className={
+                      errors.lastName
+                        ? "form-control border border-danger"
+                        : "form-control"
+                    }
                     id="exampleInputEmail1"
                     aria-describedby="Last name"
                     {...register("lastName", { required: true })}
                   />
+                  {errors.lastName && <span>This field is required</span>}
                 </div>
                 <div className="mb-3">
                   <label className="form-label">Email address</label>
                   <input
                     type="email"
-                    className="form-control"
+                    className={
+                      errors.email
+                        ? "form-control border border-danger"
+                        : "form-control"
+                    }
                     id="exampleInputEmail1"
                     aria-describedby="emailHelp"
                     {...register("email", { required: true })}
@@ -62,7 +75,11 @@ function Signup() {
                   <label className="form-label">Password</label>
                   <input
                     type="password"
-                    className="form-control"
+                    className={
+                      errors.password
+                        ? "form-control border border-danger"
+                        : "form-control"
+                    }
                     id="exampleInputPassword1"
                     {...register("password", { required: true })}
                   />

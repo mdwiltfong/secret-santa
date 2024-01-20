@@ -1,12 +1,35 @@
 import "bootstrap/dist/css/bootstrap.min.css";
 import christmas from "/./public/christmas_home.png";
 import { useForm, SubmitHandler } from "react-hook-form";
+import { yupResolver } from "@hookform/resolvers/yup";
+import * as yup from "yup";
+const passwordRegex =
+  /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,20}$/;
+const schema = yup
+  .object({
+    firstName: yup.string().required("This field is required").trim(),
+    lastName: yup.string().required("This field is required").trim(),
+    email: yup.string().email().required("This field is required").trim(),
+    password: yup
+      .string()
+      .min(8, "Password must be at least 8 characters")
+      .max(20, "Password must be at most 20 characters")
+      .matches(
+        passwordRegex,
+        "Password must contain at least one uppercase letter, one lowercase letter, one number and one special character"
+      )
+      .required("This field is required")
+      .trim(),
+  })
+  .required();
 function Signup() {
   const {
     register,
     handleSubmit,
     formState: { errors },
-  } = useForm<Inputs>();
+  } = useForm<Inputs>({
+    resolver: yupResolver(schema),
+  });
   type Inputs = {
     email: string;
     firstName: string;
@@ -39,7 +62,7 @@ function Signup() {
                     aria-describedby="First name"
                     {...register("firstName", { required: true })}
                   />
-                  {errors.firstName && <span>This field is required</span>}
+                  {errors.firstName && <span>{errors.firstName.message}</span>}
                 </div>
                 <div className="mb-3">
                   <label className="form-label">Last Name</label>
@@ -54,7 +77,7 @@ function Signup() {
                     aria-describedby="Last name"
                     {...register("lastName", { required: true })}
                   />
-                  {errors.lastName && <span>This field is required</span>}
+                  {errors.lastName && <span>{errors.lastName.message}</span>}
                 </div>
                 <div className="mb-3">
                   <label className="form-label">Email address</label>
@@ -69,7 +92,7 @@ function Signup() {
                     aria-describedby="emailHelp"
                     {...register("email", { required: true })}
                   />
-                  {errors.email && <span>This field is required</span>}
+                  {errors.email && <span>{errors.email.message}</span>}
                 </div>
                 <div className="mb-3">
                   <label className="form-label">Password</label>
@@ -83,7 +106,11 @@ function Signup() {
                     id="exampleInputPassword1"
                     {...register("password", { required: true })}
                   />
-                  {errors.password && <span>This field is required</span>}
+                  {errors.password && <span>{errors.password.message}</span>}
+                  <small style={{ display: "block" }}>
+                    *Passwods must be between 8 to 20 characters in length. Must
+                    contain upper and lowercase letters, numbers, and symbols
+                  </small>
                 </div>
                 <button type="submit" className="btn btn-success">
                   Sign up

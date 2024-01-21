@@ -52,6 +52,7 @@ function Signup() {
                 <div className="mb-3">
                   <label className="form-label ">First Name</label>
                   <input
+                    role="textbox"
                     type="text"
                     className={
                       errors.firstName
@@ -66,6 +67,7 @@ function Signup() {
                 <div className="mb-3">
                   <label className="form-label">Last Name</label>
                   <input
+                    role="textbox"
                     type="text"
                     className={
                       errors.lastName
@@ -81,6 +83,7 @@ function Signup() {
                 <div className="mb-3">
                   <label className="form-label">Email address</label>
                   <input
+                    role="textbox"
                     type="email"
                     className={
                       errors.email
@@ -96,6 +99,7 @@ function Signup() {
                 <div className="mb-3">
                   <label className="form-label">Password</label>
                   <input
+                    role="textbox"
                     type="password"
                     className={
                       errors.password
@@ -111,7 +115,7 @@ function Signup() {
                     contain upper and lowercase letters, numbers, and symbols
                   </small>
                 </div>
-                <button type="submit" className="btn btn-success">
+                <button role="button" type="submit" className="btn btn-success">
                   Sign up
                 </button>
               </form>

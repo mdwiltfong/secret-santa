@@ -109,7 +109,7 @@ function Signup() {
                     id="exampleInputPassword1"
                     {...register("password", { required: true })}
                   />
-                  {errors.password && <small>{errors.password.message}</small>}
+                  {errors.password && <small className="password-feedback">{errors.password.message}</small>}
                   <small style={{ display: "block" }}>
                     *Passwods must be between 8 to 20 characters in length. Must
                     contain upper and lowercase letters, numbers, and symbols

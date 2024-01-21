@@ -58,7 +58,6 @@ function Signup() {
                         ? "form-control border border-danger"
                         : "form-control"
                     }
-                    id="exampleInputEmail1"
                     aria-describedby="First name"
                     {...register("firstName", { required: true })}
                   />

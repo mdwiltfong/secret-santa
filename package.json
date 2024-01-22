@@ -180,7 +180,7 @@
   },
   "scripts": {
     "start": "nodemon server/dist/server.js",
-    "build": "tsc && cd client && npm install && npm run build",
+    "build": "tsc && cd client && npm install --include=dev && npm run build",
     "dev": "ts-node ./server/server.ts",
     "test": "jest server/__tests__",
     "db:seed": "ts-node ./server/prisma/clearAndSeedDB.ts",

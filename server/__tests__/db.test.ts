@@ -88,6 +88,21 @@ describe("Prisma Client Tests", () => {
       quantity: 5,
     });
   });
+
+  it("Should be able to retrieve tokens for a user", async () => {
+    const tokens = await testUser.getTokens();
+    expect(tokens).not.toBeNull();
+    // if (tokens.length == 0) {
+    //   expect(tokens[0]).toMatchObject({
+    //     id: expect.any(Number),
+    //     createdAt: expect.any(Date),
+    //     updatedAt: expect.any(Date),
+    //     valid: expect.any(Boolean),
+    //     jwtToken: expect.any(String),
+    //     userId: expect.any(Number),
+    //   });
+    // }
+  });
   it("Should be able to retrieve inventory for a user", async () => {
     const inventoryRecords = await testUser.getInventory();
     expect(inventoryRecords).not.toBeNull();

@@ -65,7 +65,7 @@ const mockEmailTokens: EmailToken[] = [
     updatedAt: new Date(),
     jwtToken: hgew4234hj2gfjh6757df, // need a way to mock this so it is like a real token
     valid: true,
-    expiration: 
+    expiration: new Date(),
   }
 ];
 

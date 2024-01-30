@@ -1,5 +1,6 @@
 import axios, { AxiosInstance, AxiosResponse } from "axios";
 import config from "../../../server/utils/Config";
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
 abstract class APIHelper {
   protected instance: AxiosInstance;
   constructor() {
@@ -13,30 +14,10 @@ abstract class APIHelper {
   }
 }
 
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
 interface APIClientI {
   get: <T>(url: string) => Promise<AxiosResponse<T>>;
   post: <T>(url: string, body: object) => Promise<AxiosResponse<T>>;
   put: <T>(url: string, body: object) => Promise<AxiosResponse<T>>;
   delete: <T>(url: string) => Promise<AxiosResponse<T>>;
 }
-
-class APIClient extends APIHelper implements APIClientI {
-  async get<T>(url: string) {
-    const response = await this.instance.get<T>(url);
-    return response.data;
-  }
-  async post<T>(url: string, body: object) {
-    const response = await this.instance.post<T>(url, body);
-    return response.data;
-  }
-  async put<T>(url: string, body: object) {
-    const response = await this.instance.put<T>(url, body);
-    return response.data;
-  }
-  async delete<T>(url: string) {
-    const response = await this.instance.delete<T>(url);
-    return response.data;
-  }
-}
-
-export default new APIClient();

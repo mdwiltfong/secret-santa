@@ -1,53 +1,46 @@
-import { Selector } from 'testcafe';
-
-const label = Selector('label');
-
-class Feature {
-    label: Selector;
-    checkbox: Selector;
-
-    constructor (text) {
-        this.label    = label.withText(text);
-        this.checkbox = this.label.find('input[type=checkbox]');
-    }
+import { Selector, t } from "testcafe";
+abstract class BasePageObject {
+  public async click(selector: Selector) {
+    await t.click(selector);
+  }
 }
 
-class Page {
-    nameInput: Selector;
-    triedTestCafeCheckbox: Selector;
-    populateButton: Selector;
-    submitButton: Selector;
-    results: Selector;
-    macOSRadioButton: Selector;
-    commentsTextArea: Selector;
-    featureList: Feature[];
-    slider: { handle: Selector; tick: Selector };
-    interfaceSelect: Selector;
-    interfaceSelectOption: Selector;
-
-    constructor () {
-        this.nameInput             = Selector('#developer-name');
-        this.triedTestCafeCheckbox = Selector('#tried-test-cafe');
-        this.populateButton        = Selector('#populate');
-        this.submitButton          = Selector('#submit-button');
-        this.results               = Selector('.result-content');
-        this.macOSRadioButton      = Selector('input[type=radio][value=MacOS]');
-        this.commentsTextArea      = Selector('#comments');
-
-        this.featureList = [
-            new Feature('Support for testing on remote devices'),
-            new Feature('Re-using existing JavaScript code for testing'),
-            new Feature('Easy embedding into a Continuous integration system'),
-        ];
-
-        this.slider = {
-            handle: Selector('.ui-slider-handle'),
-            tick:   Selector('.slider-value'),
-        };
-
-        this.interfaceSelect       = Selector('#preferred-interface');
-        this.interfaceSelectOption = this.interfaceSelect.find('option');
-    }
+class NavBar extends BasePageObject {
+  private homeLink: Selector;
+  private organizeLink: Selector;
+  private logIn: Selector;
+  constructor() {
+    super();
+    this.homeLink = Selector("a").withText("Secret Santa");
+    this.organizeLink = Selector("a").withText("Organize");
+    this.logIn = Selector("a").withText("Log in");
+  }
+  public getHomeLink() {
+    return this.homeLink;
+  }
+  public getOrganizeLink() {
+    return this.organizeLink;
+  }
+  public getLogInLink() {
+    return this.logIn;
+  }
 }
 
-export default new Page();
+class HomePage extends BasePageObject {
+  private navBar: NavBar;
+  private christmasBox: Selector;
+
+  constructor() {
+    super();
+    this.navBar = new NavBar();
+    this.christmasBox = Selector(".christmas-box");
+  }
+  public getNavBar() {
+    return this.navBar;
+  }
+  public getChristmasBox() {
+    return this.christmasBox;
+  }
+}
+const homePage = new HomePage();
+export default homePage;

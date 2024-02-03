@@ -31,6 +31,7 @@ RUN npx prisma generate
 # Copy application code
 COPY --link . .
 
+
 # Build application
 RUN npm run build
 

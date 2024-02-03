@@ -181,7 +181,7 @@
     "yocto-queue": "^0.1.0"
   },
   "scripts": {
-
+    "start": "node ./server/dist/server.js",
     "dev": " concurrently \" npm run dev:server\" \"npm run dev:client\"",
     "dev:server": "ts-node ./server/server.ts",
     "dev:client": "cd client && npm run dev",

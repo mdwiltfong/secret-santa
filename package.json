@@ -179,10 +179,12 @@
     "yocto-queue": "^0.1.0"
   },
   "scripts": {
-    "start": "nodemon server/dist/server.js",
+    "dev": " concurrently \" npm run dev:server\" \"npm run dev:client\"",
+    "dev:server": "ts-node ./server/server.ts",
+    "dev:client": "cd client && npm run dev",
     "build": "tsc && cd client && npm install && vite build",
-    "dev": "ts-node ./server/server.ts",
     "test": "jest server/__tests__",
+    "test:e2e": "concurrently \"npm run dev\" \"chrome 'e2eTests/*test*.ts'\"",
     "db:seed": "ts-node ./server/prisma/clearAndSeedDB.ts",
     "db:push": "prisma db push --schema server/prisma/schema.prisma",
     "migrate:dev": "prisma migrate dev --schema server/prisma/schema.prisma",

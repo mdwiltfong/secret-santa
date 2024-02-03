@@ -3,6 +3,9 @@ abstract class BasePageObject {
   public async click(selector: Selector) {
     await t.click(selector);
   }
+  public async getCookies(cookieKeyValue: string) {
+    return await t.getCookies(cookieKeyValue);
+  }
 }
 
 class NavBar extends BasePageObject {

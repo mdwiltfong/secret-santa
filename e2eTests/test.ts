@@ -12,3 +12,8 @@ test("Loads NavBar", async (t) => {
 test("Loads Christmas Box", async (t) => {
   await t.expect(homePage.getChristmasBox().exists).ok();
 });
+
+test.skip("Cookie is present for logged in users", async (t) => {
+  const cookie = await homePage.getCookies("token");
+  await t.expect(cookie).ok();
+});

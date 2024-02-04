@@ -80,7 +80,9 @@ jobs:
         node: [20]
     steps:
       - name: Check Chrome version
-        run: google-chrome --version
+        run: |
+          $chromePath = where.exe /R "C:\Program Files" chrome.exe | Select -First 1
+          & $chromePath --version
       - uses: actions/setup-node@v1
         with:
           node-version: ${{ matrix.node }}

@@ -187,7 +187,7 @@
     "dev:client": "cd client && npm run dev",
     "build": "tsc && cd client && npm install && vite build",
     "test": "jest server/__tests__",
-    "test:e2e": "testcafe chrome 'e2eTests/*test*.ts'",
+    "test:e2e": "testcafe chrome:headless 'e2eTests/*test*.ts'",
     "db:seed": "ts-node ./server/prisma/clearAndSeedDB.ts",
     "db:push": "prisma db push --schema server/prisma/schema.prisma",
     "migrate:dev": "prisma migrate dev --schema server/prisma/schema.prisma",

@@ -89,4 +89,4 @@ jobs:
       - name: Run TestCafe Tests
         uses: DevExpress/testcafe-action@latest
         with:
-          args: "chrome:headless"
+          args: "firefox:headless"

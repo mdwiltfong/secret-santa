@@ -37,7 +37,7 @@ jobs:
       - name: Run FE Tests
         run: npm run frontend-tests
   server-tests:
-    runs-on: [windows-latest]
+    runs-on: ubuntu-latest
     # Service containers to run with `container-job`
     services:
       # Label used to access the service container
@@ -71,7 +71,19 @@ jobs:
       - run: npm run db:push
       - run: npx eslint .
       - run: npm run test
-      - name: Run E2E Tests
+  e2e-tests:
+    name: Run Tests Across Node.js Versions and Operating Systems
+    runs-on: ${{ matrix.os }}
+    strategy:
+      matrix:
+        os: [ubuntu-latest, windows-latest]
+        node: [20]
+    steps:
+      - uses: actions/setup-node@v1
+        with:
+          node-version: ${{ matrix.node }}
+      - uses: actions/checkout@v1
+      - name: Run TestCafe Tests
         uses: DevExpress/testcafe-action@latest
         with:
           args: "chrome:headless"

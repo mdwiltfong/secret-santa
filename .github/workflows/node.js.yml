@@ -80,7 +80,7 @@ jobs:
         node: [20]
     steps:
       - name: Check Chrome version
-        run: google-chrome-stable --version
+        run: google-chrome --version
       - uses: actions/setup-node@v1
         with:
           node-version: ${{ matrix.node }}

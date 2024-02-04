@@ -83,6 +83,7 @@ jobs:
         run: |
           $chromePath = where.exe /R "C:\Program Files" chrome.exe | Select -First 1
           & $chromePath --version
+        shell: pwsh
       - uses: actions/setup-node@v1
         with:
           node-version: ${{ matrix.node }}

@@ -79,6 +79,8 @@ jobs:
         os: [ubuntu-latest, windows-latest]
         node: [20]
     steps:
+      - name: Check Chrome version
+        run: google-chrome-stable --version
       - uses: actions/setup-node@v1
         with:
           node-version: ${{ matrix.node }}

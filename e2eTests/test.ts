@@ -1,7 +1,6 @@
 import homePage from "./page-model";
 
-fixture`A set of examples that illustrate how to use TestCafe API`
-  .page`http://localhost:3002/`;
+fixture`End to End Tests for Secret Santa Project`.page`http://localhost:3002`;
 
 // Tests
 test("Loads NavBar", async (t) => {

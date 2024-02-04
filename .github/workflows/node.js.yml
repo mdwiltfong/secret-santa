@@ -36,6 +36,8 @@ jobs:
         run: npx eslint .
       - name: Run FE Tests
         run: npm run frontend-tests
+      - name: Run E2E Tests
+        run: npm run test:e2e
   server-tests:
     runs-on: ubuntu-latest
     # Service containers to run with `container-job`

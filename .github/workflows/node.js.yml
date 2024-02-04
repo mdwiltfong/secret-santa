@@ -37,7 +37,7 @@ jobs:
       - name: Run FE Tests
         run: npm run frontend-tests
   server-tests:
-    runs-on: [ubuntu-latest]
+    runs-on: [ubuntu-latest, windows-latest]
     # Service containers to run with `container-job`
     services:
       # Label used to access the service container

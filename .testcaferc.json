@@ -2,5 +2,6 @@
   "src": "./e2eTests/test.ts",
   "browsers": ["chrome"],
   "baseUrl": "http://localhost:3002",
-  "appCommand": "npm run dev"
+  "appCommand": "npm run dev",
+  "appArgs": "--no-sandbox"
 }

@@ -71,4 +71,7 @@ jobs:
       - run: npm run db:push
       - run: npx eslint .
       - run: npm run test
-      - run: npm run test:e2e
+      - name: Run E2E Tests
+        uses: DevExpress/testcafe-action@latest
+        with:
+          args: "chrome:headless"

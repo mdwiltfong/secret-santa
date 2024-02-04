@@ -37,22 +37,26 @@ Secret Santa is a web-based application designed to facilitate the traditional S
 3. **Set up the PostgreSQL database:**
 
    - Make sure that PSQL is properly [installed](https://www.postgresql.org/download/) on your machine. You can always run `psql --version` to see if it's already installed.
-   - This project uses Prisma, which relies on psql connection strings. You must first create a `.env` file in the root. Then, using `.env.example` as a guide, enter your relevant connection string to `.env`. The standard connection string is provided in `.env.example`, but your setup might require a different way to connect Prisma to your db instance. For instance, your db might not have a password by default. As a result, you will leave the `PASSWORD` part of the connection string blank. 
+   - This project uses Prisma, which relies on psql connection strings. You must first create a `.env` file in the root. Then, using `.env.example` as a guide, enter your relevant connection string to `.env`. The standard connection string is provided in `.env.example`, but your setup might require a different way to connect Prisma to your db instance. For instance, your db might not have a password by default. As a result, you will leave the `PASSWORD` part of the connection string blank.
      ![Alt text](/repo_assets/image.png)
    - At this point you should be able to setup the tables in your db using Prisma. From the root directory run `npm run migrate:dev`. If you query your DB for the tables located under `/server/prisma/schema.prisma` you will see those tables in your db.
    - Once you have your database setup, you can run the server tests to see if you're setup is done correctly.
 
 4. **Launching the app:**
-   - First, you must launch the server. You can do this by running `npm run dev`
-   - The server by default listens at port 3000. So if your server is running correctly, you should be able to visit `http://localhost:3000`
-   - Once your app is runing, you can launch the front-end. You can do this by chaning your directory to `/client` and then running `npm run dev`. Vite is able to find available ports and then launch the app. As a result, you will have to pay attention to what your terminal prints out to know what port to visit.
+   - You can start the server and the front-end code by running `npm run dev` at root. This will launch the front-end code on port `3002` and the server on `3000`.
    - You can also clear and seed the database by running `npm run db:seed`.
 5. **SendGrid Account and API Key:**
-   You may want to interact with the apps ability to send emails through [Twilio's SendGrid API](https://www.twilio.com/en-us/sendgrid/email-api). If so, you will need to sign up for an account and get an API key. If you don't want to interact with this part of the app, you can at least set `SEND_GRID_KEY` and `SEND_GRID_EMAIL` to empty strings. That way the tests can pass. 
+   You may want to interact with the apps ability to send emails through [Twilio's SendGrid API](https://www.twilio.com/en-us/sendgrid/email-api). If so, you will need to sign up for an account and get an API key. If you don't want to interact with this part of the app, you can at least set `SEND_GRID_KEY` and `SEND_GRID_EMAIL` to some arbitrary value. That way the tests can pass.
 
 ## Testing
 
 You can find the server tests under `/server/__tests__`. You can run these tests from the root through `npm test`. For the front-end tests, you can find them under `/client/tests`. In order to execute them you will have to change the directory to `/client` and then run `npm run frontend-tests`.
+
+### End-to-end Tests
+
+In order to test the full stack solution of the app, front-end and back-end, the repo uses [TestCafe](https://testcafe.io/). You can execute these tests by running `npm run test:e2e` from the root.
+
+If you want to add to these tests, you can do so in `./e2eTests`
 
 ## Best Practices
 
@@ -60,7 +64,7 @@ When working with the server, you will notice that there are two ways to spin up
 
 ### Working with Prisma
 
-In some instances, your fork is lagging behind new updates being made to the db. These updates are typically done by modifying `server/prisma/schema.prisma`. In order to make sure your contribution passes the db tests, you should pull from main, potentially resolve any conflicts, and then update the schema on your local db. You can update your local db by running `npm run db:push`. Once that command is successful, you will have to generate a new prisma client. You can do this by running `npm run db:newClient`. 
+In some instances, your fork is lagging behind new updates being made to the db. These updates are typically done by modifying `server/prisma/schema.prisma`. In order to make sure your contribution passes the db tests, you should pull from main, potentially resolve any conflicts, and then update the schema on your local db. You can update your local db by running `npm run db:push`. Once that command is successful, you will have to generate a new prisma client. You can do this by running `npm run db:newClient`.
 
 ## Contributing
 

@@ -13,6 +13,10 @@ import userRouter from "./routes/userRouter";
 import ExpressError from "./utils/ExpressError";
 import cookieExtractor from "./utils/JwtCookieExtractor";
 import cookieParser from "cookie-parser";
+type Error = {
+  status?: number;
+  message?: string;
+};
 passport.serializeUser(function (user, done) {
   done(null, user);
 });
@@ -68,7 +72,7 @@ passport.use(
 const app = express();
 app.use(cookieParser("secret"));
 app.use(passport.initialize());
-
+// TODO: Passport is able to extract cookies, but it looks like it doesn't set cookies. https://stackoverflow.com/questions/16209145/how-can-i-set-cookie-in-node-js-using-express-framework
 app.use(bodyParser.json());
 app.use(morgan("combined"));
 app.use("/auth", authRouter);
@@ -83,8 +87,5 @@ app.use(function (err: Error, req: Request, res: Response, next: NextFunction) {
   const message = err.message || "Something went wrong";
   return res.status(status).json({ error: message });
 });
-type Error = {
-  status?: number;
-  message?: string;
-};
+
 export default app;

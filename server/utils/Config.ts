@@ -10,7 +10,7 @@ interface ENV {
   SEND_GRID_KEY: string;
   SEND_GRID_EMAIL: string;
   PORT: number;
-  NODE_ENV: string;
+  NODE_ENV: "production" | "development" | "test" | string;
 }
 
 interface Config extends ENV {}
@@ -21,7 +21,7 @@ const getConfig = (): ENV => {
     SEND_GRID_KEY: process.env.SEND_GRID_KEY!,
     SEND_GRID_EMAIL: process.env.SEND_GRID_EMAIL!,
     PORT: Number(process.env.PORT!),
-    NODE_ENV: process.env.NODE_ENV!,
+    NODE_ENV: process.env.NODE_ENV ? process.env.NODE_ENV : "development",
   };
 };
 

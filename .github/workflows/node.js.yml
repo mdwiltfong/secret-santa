@@ -71,3 +71,22 @@ jobs:
       - run: npm run db:push
       - run: npx eslint .
       - run: npm run test
+  e2e-tests:
+    name: Run Tests Across Node.js Versions and Operating Systems
+    runs-on: ${{ matrix.os }}
+    strategy:
+      matrix:
+        os: [ubuntu-latest, windows-latest]
+        node: [20]
+    steps:
+      - uses: browser-actions/setup-chrome@v1
+      - run: chrome --version
+      - uses: actions/setup-node@v1
+        with:
+          node-version: ${{ matrix.node }}
+      - uses: actions/checkout@v1
+      - run: npm ci
+      - name: Run TestCafe Tests
+        uses: DevExpress/testcafe-action@latest
+        with:
+          args: "chrome:headless --app-init-delay 10000"

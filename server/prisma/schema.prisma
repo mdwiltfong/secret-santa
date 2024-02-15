@@ -41,7 +41,7 @@ model Users {
   password                 String
   sessionUserGifts         SessionUserGifts[]
   tokens                   EmailTokens[]
-  inventory               UsersInventory[]
+  inventory                UsersInventory[]
 }
 
 model UsersInventory{

@@ -18,6 +18,15 @@ type Session = {
   date: Date;
 };
 
+type EmailToken = {
+  createdAt: Date;
+  updatedAt: Date;
+  jwtToken: string;
+  valid: boolean;
+  expiration: Date;
+  userId: number;
+}
+
 type SessionUserGift = {
   createdAt: Date;
   updatedAt: Date;
@@ -48,6 +57,16 @@ const mockUsers: User[] = [
     email: "testUser2@email.com",
     password: "$2b$10$wQKPTTzcW0eAo/46hucjJuAAjtWL45fvsA6Ktc7IaDy75Loq2gN8G",
   },
+];
+
+const mockEmailTokens: EmailToken[] = [
+  {
+    createdAt: new Date(),
+    updatedAt: new Date(),
+    jwtToken: hgew4234hj2gfjh6757df, // need a way to mock this so it is like a real token
+    valid: true,
+    expiration: new Date(),
+  }
 ];
 
 const mockSessions: Session[] = [

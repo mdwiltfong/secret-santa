@@ -1,0 +1,44 @@
+name: Label PR when prisma schema is changed
+
+on:
+    pull_request:
+        types: [opened]
+
+jobs:
+  check-schema:
+    runs-on: ubuntu-latest
+    steps:
+    - name: Checkout main branch
+      uses: actions/checkout@v2
+      with:
+        ref: 'main'
+    - name: Save main branch schema
+      run: cp ./server/prisma/schema.prisma schema-main.prisma
+
+    - name: Checkout PR branch
+      uses: actions/checkout@v2
+      with:
+        ref: ${{ github.head_ref }}
+
+    - name: Compare schema with main
+      id: schema_check
+      run:
+        if ! diff schema-main.prisma ./server/prisma/schema.prisma; then
+          echo "Schema changes detected!"
+          echo "schema-change=true" >> $GITHUB_OUTPUT
+        else
+          echo "No changes"
+        fi
+
+    - name: Label the PR if the schema has changed
+      if: steps.schema_check.outputs.schema_change == 'true'
+      uses: actions/github-script@v5
+      with:
+        github-token: ${{ secrets.GITHUB_TOKEN }}
+        script: |
+          github.rest.issues.addLabels({
+            owner: context.repo.owner,
+            repo: context.repo.repo,
+            issue_number: context.issue.number,
+            labels: ['DB Schema change']
+          })

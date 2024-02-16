@@ -9,14 +9,14 @@ jobs:
     runs-on: ubuntu-latest
     steps:
     - name: Checkout main branch
-      uses: actions/checkout@v2
+      uses: actions/checkout@v4.1.1
       with:
         ref: 'main'
     - name: Save main branch schema
       run: cp ./server/prisma/schema.prisma schema-main.prisma
 
     - name: Checkout PR branch
-      uses: actions/checkout@v2
+      uses: actions/checkout@v4.1.1
       with:
         ref: ${{ github.head_ref }}
 

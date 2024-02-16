@@ -17,8 +17,6 @@ jobs:
 
     - name: Checkout PR branch
       uses: actions/checkout@v4.1.1
-      with:
-        ref: ${{ github.head_ref }}
 
     - name: Compare schema with main
       id: schema_check

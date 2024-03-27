@@ -36,6 +36,7 @@ function Signup() {
     lastName: string;
     password: string;
   };
+  // Waiting for this issue to be resolved before adding logic for handling submits: https://github.com/mdwiltfong/secret-santa/issues/48
   const onSubmit: SubmitHandler<Inputs> = (data) => console.log(data);
   return (
     <>
